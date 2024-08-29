@@ -70,7 +70,6 @@ public class RegistrationPage {
                 passwordConfirmationErrorMessage()
         };
     }
-
     public String firstnameErrorMessage() {
         if (driver.findElements(firstnameErrorField).isEmpty()) {
             return "";
