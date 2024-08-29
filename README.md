@@ -70,6 +70,10 @@ Negative paths (sad paths) to test the system's behavior in failure scenarios.
 
 (Report here :))
 
+**Defects: **
+
+(defects here)
+
 ### Collaborative Use of GitHub -
 Project Board: Used GitHub Projects to manage user stories, tasks, and issues.
 Defect Tracking: Identified defects were documented as issues on the project board, with descriptions and severity levels.
