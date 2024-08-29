@@ -27,7 +27,7 @@ public class TestSetup {
     private static String myOS;
     private static String myBrowser;
 
-    public static String detectOS() {
+    private static String detectOS() {
         String os = System.getProperty("os.name").toLowerCase(Locale.ENGLISH);
         if (os.contains("win")) {
             return "windows";
@@ -40,7 +40,7 @@ public class TestSetup {
         }
     }
 
-    public static String detectDefaultBrowser() {
+    private static String detectDefaultBrowser() {
         myOS = detectOS();
         String browser = null;
 
@@ -142,23 +142,23 @@ public class TestSetup {
         switch (myBrowser.toLowerCase()) {
             case "firefox" -> {
                 driverLocation = switch (myOS) {
-                    case "windows" -> "src/test/resources/geckodriver.exe";
-                    case "mac" -> "src/test/resources/geckodriver-mac";
-                    case "linux" -> "src/test/resources/geckodriver-linux";
+                    case "windows" -> "src/test/resources/drivers/geckodriver.exe";
+                    case "mac" -> "src/test/resources/drivers/geckodriver-mac";
+                    case "linux" -> "src/test/resources/drivers/geckodriver-linux";
                     default -> throw new UnsupportedOperationException("Unsupported OS: " + myOS);
                 };
             }
             case "chrome" -> {
                 driverLocation = switch (myOS) {
-                    case "windows" -> "src/test/resources/chromedriver.exe";
-                    case "mac" -> "src/test/resources/chromedriver-mac";
-                    case "linux" -> "src/test/resources/chromedriver-linux";
+                    case "windows" -> "src/test/resources/drivers/chromedriver.exe";
+                    case "mac" -> "src/test/resources/drivers/chromedriver-mac";
+                    case "linux" -> "src/test/resources/drivers/chromedriver-linux";
                     default -> throw new UnsupportedOperationException("Unsupported OS: " + myOS);
                 };
             }
             case "edge" -> {
                 driverLocation = switch (myOS) {
-                    case "windows" -> "src/test/resources/msedgedriver.exe";
+                    case "windows" -> "src/test/resources/drivers/msedgedriver.exe";
                     case "mac", "linux" ->
                             throw new UnsupportedOperationException("Edge is only supported on Windows.");
                     default -> throw new UnsupportedOperationException("Unsupported OS: " + myOS);
@@ -166,9 +166,9 @@ public class TestSetup {
             }
             case "opera" -> {
                 driverLocation = switch (myOS) {
-                    case "windows" -> "src/test/resources/operadriver.exe";
-                    case "mac" -> "src/test/resources/operadriver-mac";
-                    case "linux" -> "src/test/resources/operadriver-linux";
+                    case "windows" -> "src/test/resources/drivers/operadriver.exe";
+                    case "mac" -> "src/test/resources/drivers/operadriver-mac";
+                    case "linux" -> "src/test/resources/drivers/operadriver-linux";
                     default -> throw new UnsupportedOperationException("Unsupported OS: " + myOS);
                 };
             }
@@ -214,10 +214,12 @@ public class TestSetup {
         webDriver.get(url);
         return new Website(webDriver);
     }
+
     public static void startServiceWithDefaultBrowser() {
         myBrowser = detectDefaultBrowser();
         startService();
     }
+
     public static void startServiceWithBrowser(String browser) {
         myBrowser = browser;
         startService();
