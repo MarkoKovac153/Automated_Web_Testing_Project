@@ -67,7 +67,8 @@ public class RegistrationPageStepDefs {
     }
     @Then("I should see an error message that contains {string}")
     public void iShouldSeeAnErrorMessageThatContains(String errorMessage) {
-        Assert.assertTrue(website.getRegistrationPage().passwordErrorMessage().contains(errorMessage));
+        Assert.assertTrue(Arrays.stream(website.getRegistrationPage().getErrors()).anyMatch(s -> s.contains(errorMessage)));
+        //Assert.assertTrue(website.getRegistrationPage().passwordErrorMessage().contains(errorMessage));
     }
 
     @And("I should be taken to my account dashboard")

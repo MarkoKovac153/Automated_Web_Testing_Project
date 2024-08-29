@@ -3,6 +3,9 @@ package com.sparta.testing.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
 public class RegistrationPage {
 
     private final WebDriver driver;
@@ -57,6 +60,7 @@ public class RegistrationPage {
     }
 
     public String[] getErrors() {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
         return new String[] {
                 firstnameErrorMessage(),
                 lastnameErrorMessage(),
@@ -66,40 +70,48 @@ public class RegistrationPage {
                 passwordConfirmationErrorMessage()
         };
     }
+
     public String firstnameErrorMessage() {
         if (driver.findElements(firstnameErrorField).isEmpty()) {
             return "";
+        } else {
+            return driver.findElement(firstnameErrorField).getText();
         }
-        return driver.findElement(firstnameErrorField).getText();
+
     }
     public String lastnameErrorMessage() {
         if (driver.findElements(lastnameErrorField).isEmpty()) {
             return "";
-        }
+        } else {
         return driver.findElement(lastnameErrorField).getText();
+        }
     }
     public String emailErrorMessage() {
         if (driver.findElements(emailErrorField).isEmpty()) {
             return "";
+        } else{
+            return driver.findElement(emailErrorField).getText();
         }
-        return driver.findElement(emailErrorField).getText();
     }
     public String passwordErrorMessage() {
         if (driver.findElements(passwordErrorField).isEmpty()) {
             return "";
+        } else {
+            return driver.findElement(passwordErrorField).getText();
         }
-        return driver.findElement(passwordErrorField).getText();
     }
     public String passwordStrengthErrorMessage() {
         if (driver.findElements(passwordStrengthField).isEmpty()) {
             return "";
+        } else {
+            return driver.findElement(passwordStrengthField).getText();
         }
-        return driver.findElement(passwordStrengthField).getText();
     }
     public String passwordConfirmationErrorMessage() {
         if (driver.findElements(password_confirmationErrorField).isEmpty()) {
             return "";
+        } else {
+            return driver.findElement(password_confirmationErrorField).getText();
         }
-        return driver.findElement(password_confirmationErrorField).getText();
     }
 }
