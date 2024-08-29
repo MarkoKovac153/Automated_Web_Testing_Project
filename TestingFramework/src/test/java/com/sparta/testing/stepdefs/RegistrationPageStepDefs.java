@@ -1,23 +1,27 @@
 package com.sparta.testing.stepdefs;
 
 import com.sparta.testing.pages.Website;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.hamcrest.MatcherAssert;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Assert;
+
 
 import java.io.IOException;
 import java.util.Arrays;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class RegistrationPageStepDefs {
     private Website website;
     private static final String BASE_URL = "https://magento.softwaretestingboard.com/customer/account/create/";
 
     @Before
-    public void setup() throws IOException {
+    public void setup(){
         TestSetup.startServiceWithDefaultBrowser();
         TestSetup.createWebDriver();
     }
@@ -40,22 +44,18 @@ public class RegistrationPageStepDefs {
     public void iEnterMyLastName(String lastname) {
         website.getRegistrationPage().enterLastName(lastname);
     }
-
     @And("I enter my email {string}")
     public void iEnterMyEmail(String email) {
         website.getRegistrationPage().enterEmail(email);
     }
-
     @And("I enter my password {string}")
     public void iEnterMyPassword(String password) {
         website.getRegistrationPage().enterPassword(password);
     }
-
     @And("I enter my password confirmation {string}")
     public void iEnterMyPasswordConfirmation(String password_confirmation) {
         website.getRegistrationPage().enterPasswordConfirmation(password_confirmation);
     }
-
     @And("I click the Create an Account button")
     public void iClickTheButton() {
         website.getRegistrationPage().clickRegister();
@@ -65,20 +65,19 @@ public class RegistrationPageStepDefs {
     public void myAccountShouldBeCreatedSuccessfully() {
 
     }
+    @Then("I should see an error message that contains {string}")
+    public void iShouldSeeAnErrorMessageThatContains(String errorMessage) {
+        Assert.assertTrue(website.getRegistrationPage().passwordErrorMessage().contains(errorMessage));
+    }
 
     @And("I should be taken to my account dashboard")
     public void iShouldBeTakenToMyAccountDashboard() {
     }
-
     @And("I should see a welcome message")
     public void iShouldSeeAWelcomeMessage() {
     }
 
-    @Then("I should see an error message that contains {string}")
-    public void iShouldSeeAnErrorMessageThatContains(String errorMessage) {
-        MatcherAssert.assertThat(errorMessage, Arrays.stream(website.getRegistrationPage().getErrors()).anyMatch(e -> e.contains(errorMessage)));
 
-    }
 
 
 }

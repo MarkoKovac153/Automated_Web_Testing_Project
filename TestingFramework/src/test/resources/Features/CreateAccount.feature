@@ -25,5 +25,6 @@ Feature: CreateAccount
     And I enter my last name "McGee"
     And I enter my email "Test1@email.com"
     And I enter my password "P"
+    And I enter my password confirmation "P"
     And I click the Create an Account button
-    Then I should see an error message that contains "invalid password"
+    Then I should see an error message that contains "length of this field must be equal or greater than 8 symbols"
