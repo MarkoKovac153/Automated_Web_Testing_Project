@@ -15,15 +15,6 @@ public class RegistrationPageStepDefs {
     private Website website;
     private static final String BASE_URL = "https://magento.softwaretestingboard.com/customer/account/create/";
 
-    @Before
-    public void setup(){
-        TestSetup.startServiceWithDefaultBrowser();
-        TestSetup.createWebDriver();
-    }
-    @After
-    public void afterEach(){
-        TestSetup.stopService();
-    }
     @Given("I am on the registration page")
     public void iAmOnTheRegistrationPage() {
         website = TestSetup.getWebsite(BASE_URL);
