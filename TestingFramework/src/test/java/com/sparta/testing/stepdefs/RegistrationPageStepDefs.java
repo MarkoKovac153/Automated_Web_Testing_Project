@@ -29,11 +29,14 @@ public class RegistrationPageStepDefs {
         Map<String, String> dataMap = new HashMap<>();
 
         for (List<String> row : rows) {
-            if (row.size() == 2) {
-                String field = row.get(0).trim();
-                String value = row.get(1).trim();
-                dataMap.put(field, value);
+
+            String field = row.get(0).trim();
+            String value = "";
+            if (row.get(1) != null) {
+                value = row.get(1);
             }
+            dataMap.put(field, value);
+
         }
         website.getRegistrationPage().registerAccount(
                 dataMap.get("First Name"),
