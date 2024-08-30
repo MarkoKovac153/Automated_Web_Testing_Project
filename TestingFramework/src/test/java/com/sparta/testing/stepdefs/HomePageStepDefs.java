@@ -14,11 +14,8 @@ public class HomePageStepDefs {
         TestSetup.startService(this.getClass());
         TestSetup.createWebDriver();
     }
-
     @After
     public void afterEach() {
         TestSetup.stopService();
     }
-
-
 }

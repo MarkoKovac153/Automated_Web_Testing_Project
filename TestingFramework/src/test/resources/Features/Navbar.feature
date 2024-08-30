@@ -1,4 +1,4 @@
-Feature: Login
+Feature: Navbar
 
   In order to be able to buy items
   As a registered user of the Sauce Labs website
