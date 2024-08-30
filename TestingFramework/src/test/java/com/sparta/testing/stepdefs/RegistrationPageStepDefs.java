@@ -23,6 +23,8 @@ public class RegistrationPageStepDefs {
         website.getRegistrationPage().registerAccount(firstname, lastname, email, password, password_confirmation);
     }
 
+    
+
     @When("I enter my first name {string}")
     public void iEnterMyFirstName(String firstname) {
         website.getRegistrationPage().enterFirstName(firstname);

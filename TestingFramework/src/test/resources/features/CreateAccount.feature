@@ -7,7 +7,7 @@ Feature: CreateAccount
   Background:
     Given I am on the registration page
 
-  @Happy
+  @SoloHappy
   Scenario Outline: Creating a new account with valid information
     When I enter the registration details "<firstname>""<lastname>""<email>""<password>""<password_confirmation>"
     Then I should be taken to my new account dashboard
@@ -22,7 +22,7 @@ Feature: CreateAccount
     Then I should see an account error message that contains "This is a required field"
     Examples:
       | firstname | lastname | email           | password     | password_confirmation |
-      |       | McGee    | Test1@email.com     | password123! | password123!          |
+      |           | McGee    | Test1@email.com | password123! | password123!          |
   @Sad
   Scenario Outline: Creating a new account without a lastname
     When I enter the registration details "<firstname>""<lastname>""<email>""<password>""<password_confirmation>"

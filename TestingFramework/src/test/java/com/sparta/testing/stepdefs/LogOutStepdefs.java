@@ -17,12 +17,14 @@ public class LogOutStepdefs {
     }
     @And("I am logged into my account")
     public void iAmLoggedIntoMyAccount() {
+        website.getHomePage().clickLoginOrLogoutButton();
+        website.getLoginPage().enterLoginDetails("test1@email.com", "password123!");
         website.getHomePage().accountSignedIn();
     }
     @When("I click the LogOut button")
     public void iClickTheButton() {
         website.getHomePage().clickUserField();
-        website.getHomePage().clickLogoutButton();
+        website.getHomePage().clickLoginOrLogoutButton();
     }
     @Then("I should be redirected to the logged out successfully page")
     public void iShouldBeRedirectedToTheLoggedOutSuccessfullyPage() {

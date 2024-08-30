@@ -13,7 +13,7 @@ public class HomePage {
     private final By navbar = new By.ByClassName("navigation");
     private final By list = new By.ByTagName("li");
     private final By userField = new By.ByClassName("customer-name");
-    private final By logoutButton = new By.ByClassName("authorization-link");
+    private final By loginOrlogoutButton = new By.ByClassName("authorization-link");
     private final By errorBox = new By.ByClassName("error-message-container");
 
     public HomePage(WebDriver driver) {
@@ -52,8 +52,8 @@ public class HomePage {
     public void clickUserField() {
         driver.findElement(userField).click();
     }
-    public void clickLogoutButton() {
-        driver.findElement(logoutButton).click();
+    public void clickLoginOrLogoutButton() {
+        driver.findElement(loginOrlogoutButton).click();
     }
 //    public void login(String username, String password) {
 //        driver.findElement(usernameField).sendKeys(username);
