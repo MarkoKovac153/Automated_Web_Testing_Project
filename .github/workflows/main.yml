@@ -22,7 +22,7 @@ jobs:
           
       - name: Download and Install Chrome
         run: |
-          wget https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.86/win64/chrome-win64.zip -O chrome.zip
+          wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.86/win64/chrome-win64.zip -O chrome.zip
           unzip chrome.zip -d /usr/local/
           sudo mv /usr/local/chrome-win64 /usr/local/chrome
           sudo ln -s /usr/local/chrome/chrome /usr/local/bin/google-chrome
