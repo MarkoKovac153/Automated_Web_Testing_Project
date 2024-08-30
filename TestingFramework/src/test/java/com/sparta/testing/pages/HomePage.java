@@ -3,19 +3,18 @@ package com.sparta.testing.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class HomePage {
     private final WebDriver driver;
     private final By navbar = new By.ByClassName("navigation");
     private final By list = new By.ByTagName("li");
-    private final By passwordField = new By.ById("password");
-    private final By loginButton = new By.ById("login-button");
+    private final By userField = new By.ByClassName("customer-name");
+    private final By logoutButton = new By.ByClassName("authorization-link");
     private final By errorBox = new By.ByClassName("error-message-container");
-
-    private String username;
-    private String password;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -40,6 +39,21 @@ public class HomePage {
             }
         }
         System.out.println("Link with text '" + linkText + "' not found.");
+    }
+    public void accountSignedIn() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+            wait.until(driver -> driver.findElement(userField).isDisplayed());
+        } catch (Exception e) {
+            System.out.println("Field not found");
+        }
+
+    }
+    public void clickUserField() {
+        driver.findElement(userField).click();
+    }
+    public void clickLogoutButton() {
+        driver.findElement(logoutButton).click();
     }
 //    public void login(String username, String password) {
 //        driver.findElement(usernameField).sendKeys(username);

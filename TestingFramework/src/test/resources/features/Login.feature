@@ -1,8 +1,8 @@
 Feature: Login
 
-  In order to be able to buy items
-  As a registered user of the Sauce Labs website
-  I want to be able to sign in to my account
+  As a returning user,
+  I want to log in to my account
+  So that I can view my order history and manage my account details.
 
   Background:
     Given I am on the login page
