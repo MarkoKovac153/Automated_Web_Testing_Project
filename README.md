@@ -15,6 +15,7 @@ Track progress and defects using a project board on GitHub.
 
 **Prerequisites :**
 
+* Intellij Idea (or any other development environment)
 * Java Development Kit (JDK) 8 or higher
 * Maven
 * ChromeDriver (compatible with your Chrome browser version)
@@ -26,7 +27,6 @@ Track progress and defects using a project board on GitHub.
 ```bash
 Copy code
 git clone https://github.com/yourusername/automated-web-testing.git
-```
 
 * Navigate to the Project Directory:
 ```bash
@@ -69,6 +69,10 @@ Negative paths (sad paths) to test the system's behavior in failure scenarios.
 **Test Metrics :**
 
 (Report here :))
+
+**Defects: **
+
+(defects here)
 
 ### Collaborative Use of GitHub -
 Project Board: Used GitHub Projects to manage user stories, tasks, and issues.
