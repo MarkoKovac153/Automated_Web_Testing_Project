@@ -1,13 +1,8 @@
 package com.sparta.testing.stepdefs;
 
 import com.sparta.testing.pages.Website;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.Arrays;
 
 public class HomePageStepDefs {
 
