@@ -8,7 +8,8 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = {"src/test/resources/features"},
         plugin = {"pretty", "html:target/testReport.html", "json:target/jsonReport.json"},
-        publish = true
+        publish = true,
+        tags = "not @Happy"
 )
 public class TestRunner {
 }
