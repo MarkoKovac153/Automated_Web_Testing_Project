@@ -78,7 +78,7 @@ public class RegistrationPage {
     }
     public String getMessage(){
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
             wait.until(driver -> driver.findElement(messageField).isDisplayed());
             return driver.findElement(messageField).getText();
         } catch (TimeoutException | NoSuchElementException ignored) {
