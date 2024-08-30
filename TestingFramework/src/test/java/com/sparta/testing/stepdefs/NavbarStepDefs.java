@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.containsString;
 
 //@Browser(BrowserType.EDGE)
 //@Browser(BrowserType.CHROME)
-@Browser(BrowserType.FIREFOX)
+//@Browser(BrowserType.FIREFOX)
 public class NavbarStepDefs {
     private Website website;
     private static final String BASE_URL = "https://magento.softwaretestingboard.com/";

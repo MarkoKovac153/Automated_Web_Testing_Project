@@ -29,6 +29,69 @@ public class TestSetup {
     private static String myOS;
     private static BrowserType myBrowser;
 
+    public static Website getWebsite(String url) {
+        webDriver.get(url);
+        return new Website(webDriver);
+    }
+
+    public static void startService(Class<?> testClass) {
+        Browser annotation = testClass.getAnnotation(Browser.class);
+
+        if (annotation != null) {
+            myBrowser = annotation.value();
+        } else {
+            myBrowser = BrowserType.DEFAULT;
+        }
+
+        if (myBrowser == BrowserType.DEFAULT) {
+            String defaultBrowser = detectDefaultBrowser().toUpperCase();
+            try {
+                myBrowser = BrowserType.valueOf(defaultBrowser);
+            } catch (IllegalArgumentException e) {
+                throw new UnsupportedOperationException("Detected default browser is not supported: " + defaultBrowser, e);
+            }
+        }
+
+        startService();
+    }
+
+    public static void createWebDriver() {
+        switch (myBrowser) {
+            case FIREFOX -> webDriver = new RemoteWebDriver(firefoxService.getUrl(), getFirefoxOptions());
+            case CHROME, OPERA -> webDriver = new RemoteWebDriver(chromeService.getUrl(), getChromeOptions());
+            case EDGE -> webDriver = new RemoteWebDriver(edgeService.getUrl(), getEdgeOptions());
+            case SAFARI -> webDriver = new SafariDriver(getSafariOptions());
+            default -> throw new UnsupportedOperationException("Unsupported browser: " + myBrowser);
+        }
+    }
+
+    public static void stopService() {
+        if (webDriver != null) {
+            webDriver.quit();
+            webDriver = null;
+        }
+
+        forceKillDrivers();
+    }
+
+    public static void forceKillDrivers() {
+        String[] command = null;
+        if (myOS.contains("win")) {
+            command = new String[]{"cmd.exe", "/c", "taskkill /F /IM chromedriver.exe /IM geckodriver.exe /IM msedgedriver.exe /IM operadriver.exe"};
+        } else if (myOS.contains("mac") || myOS.contains("nix") || myOS.contains("nux")) {
+            command = new String[]{"/bin/sh", "-c", "pkill -f chromedriver; pkill -f geckodriver; pkill -f msedgedriver; pkill -f operadriver"};
+        } else {
+            throw new UnsupportedOperationException("Unsupported operating system: " + myOS);
+        }
+
+        try {
+            Process process = new ProcessBuilder(command).start();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            System.err.println("Failed to force kill WebDriver processes: " + e.getMessage());
+        }
+    }
+
     private static String detectOS() {
         String os = System.getProperty("os.name").toLowerCase(Locale.ENGLISH);
         if (os.contains("win")) {
@@ -161,7 +224,8 @@ public class TestSetup {
             case EDGE -> {
                 driverLocation = switch (myOS) {
                     case "windows" -> "src/test/resources/drivers/msedgedriver.exe";
-                    case "mac", "linux" -> throw new UnsupportedOperationException("Edge is only supported on Windows.");
+                    case "mac", "linux" ->
+                            throw new UnsupportedOperationException("Edge is only supported on Windows.");
                     default -> throw new UnsupportedOperationException("Unsupported OS: " + myOS);
                 };
             }
@@ -211,32 +275,6 @@ public class TestSetup {
         return options;
     }
 
-    public static Website getWebsite(String url) {
-        webDriver.get(url);
-        return new Website(webDriver);
-    }
-
-    public static void startService(Class<?> testClass) {
-        Browser annotation = testClass.getAnnotation(Browser.class);
-
-        if (annotation != null) {
-            myBrowser = annotation.value();
-        } else {
-            myBrowser = BrowserType.DEFAULT;
-        }
-
-        if (myBrowser == BrowserType.DEFAULT) {
-            String defaultBrowser = detectDefaultBrowser().toUpperCase();
-            try {
-                myBrowser = BrowserType.valueOf(defaultBrowser);
-            } catch (IllegalArgumentException e) {
-                throw new UnsupportedOperationException("Detected default browser is not supported: " + defaultBrowser, e);
-            }
-        }
-
-        startService();
-    }
-
     private static void startService() {
         if (myBrowser == null) {
             throw new IllegalStateException("Browser not set. Use startService(Class<?> testClass) or set myBrowser directly.");
@@ -252,6 +290,7 @@ public class TestSetup {
                 firefoxService = new GeckoDriverService.Builder()
                         .usingDriverExecutable(new File(driverLocation))
                         .usingAnyFreePort()
+                        .withTimeout(Duration.ofSeconds(10))
                         .build();
                 try {
                     firefoxService.start();
@@ -263,6 +302,7 @@ public class TestSetup {
                 chromeService = new ChromeDriverService.Builder()
                         .usingDriverExecutable(new File(driverLocation))
                         .usingAnyFreePort()
+                        .withTimeout(Duration.ofSeconds(10))
                         .build();
                 try {
                     chromeService.start();
@@ -274,6 +314,7 @@ public class TestSetup {
                 edgeService = new EdgeDriverService.Builder()
                         .usingDriverExecutable(new File(driverLocation))
                         .usingAnyFreePort()
+                        .withTimeout(Duration.ofSeconds(10))
                         .build();
                 try {
                     edgeService.start();
@@ -288,6 +329,7 @@ public class TestSetup {
                 chromeService = new ChromeDriverService.Builder()
                         .usingDriverExecutable(new File(driverLocation))
                         .usingAnyFreePort()
+                        .withTimeout(Duration.ofSeconds(10))
                         .build();
                 try {
                     chromeService.start();
@@ -296,35 +338,6 @@ public class TestSetup {
                 }
             }
             default -> throw new UnsupportedOperationException("Unsupported browser: " + myBrowser);
-        }
-    }
-
-    public static void createWebDriver() {
-        switch (myBrowser) {
-            case FIREFOX -> webDriver = new RemoteWebDriver(firefoxService.getUrl(), getFirefoxOptions());
-            case CHROME, OPERA -> webDriver = new RemoteWebDriver(chromeService.getUrl(), getChromeOptions());
-            case EDGE -> webDriver = new RemoteWebDriver(edgeService.getUrl(), getEdgeOptions());
-            case SAFARI -> webDriver = new SafariDriver(getSafariOptions());
-            default -> throw new UnsupportedOperationException("Unsupported browser: " + myBrowser);
-        }
-    }
-
-    public static void stopService() {
-        if (webDriver != null) {
-            webDriver.quit();
-            webDriver = null;
-        }
-
-        if (firefoxService != null && firefoxService.isRunning()) {
-            firefoxService.stop();
-        }
-
-        if (chromeService != null && chromeService.isRunning()) {
-            chromeService.stop();
-        }
-
-        if (edgeService != null && edgeService.isRunning()) {
-            edgeService.stop();
         }
     }
 }
