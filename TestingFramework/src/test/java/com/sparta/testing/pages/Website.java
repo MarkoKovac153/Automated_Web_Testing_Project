@@ -6,11 +6,17 @@ public class Website {
     private final WebDriver webDriver;
     private final HomePage homePage;
     private final InventoryPage inventoryPage;
+    private final SearchPage searchPage;
 
     public Website(WebDriver webDriver){
         this.webDriver = webDriver;
         homePage = new HomePage(webDriver);
         inventoryPage = new InventoryPage(webDriver);
+        searchPage = new SearchPage(webDriver);
+    }
+
+    public SearchPage getSearchPage() {
+        return searchPage;
     }
 
     public HomePage getHomePage(){
