@@ -30,11 +30,11 @@ public class RegistrationPageStepDefs {
     public void afterEach(){
         TestSetup.stopService();
     }
-
     @Given("I am on the registration page")
     public void iAmOnTheRegistrationPage() {
         website = TestSetup.getWebsite(BASE_URL);
     }
+
     @When ("I enter the registration details {string}{string}{string}{string}{string}")
     public void iEnterMyRegistrationDetails(String firstname, String lastname, String email, String password, String password_confirmation) {
         website.getRegistrationPage().registerAccount(firstname, lastname, email, password, password_confirmation);
@@ -65,21 +65,17 @@ public class RegistrationPageStepDefs {
         website.getRegistrationPage().clickRegister();
     }
 
-    @Then("my account should be created successfully")
-    public void myAccountShouldBeCreatedSuccessfully() {
-
-    }
     @Then("I should see an error message that contains {string}")
     public void iShouldSeeAnErrorMessageThatContains(String errorMessage) {
-        Assert.assertTrue(Arrays.stream(website.getRegistrationPage().getErrors()).anyMatch(s -> s.contains(errorMessage)));
+        Assert.assertTrue(website.getRegistrationPage().getErrors().contains(errorMessage));
     }
 
+    @Then("my account should be created successfully")
+    public void myAccountShouldBeCreatedSuccessfully() {
+        Assert.assertTrue(website.getRegistrationPage().getWelcomeMessage().contains("Welcome,"));
+    }
     @And("I should be taken to my account dashboard")
     public void iShouldBeTakenToMyAccountDashboard() {
         Assert.assertEquals("https://magento.softwaretestingboard.com/customer/account/", website.getCurrentUrl());
-    }
-    @And("I should see a welcome message")
-    public void iShouldSeeAWelcomeMessage() {
-        Assert.assertTrue(website.getRegistrationPage().getWelcomeMessage().contains("Welcome,"));
     }
 }

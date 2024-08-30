@@ -6,6 +6,8 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
 
 public class RegistrationPage {
 
@@ -56,10 +58,10 @@ public class RegistrationPage {
     }
 
     // Error Messages
-    public String[] getErrors() {
+    public List<String> getErrors() {
         // Turns off the wait when not finding an element
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(0));
-        String[] output = {
+        List<String> output = Arrays.asList(
                 getMessage(),
                 firstnameErrorMessage(),
                 lastnameErrorMessage(),
@@ -67,7 +69,7 @@ public class RegistrationPage {
                 passwordErrorMessage(),
                 passwordStrengthErrorMessage(),
                 passwordConfirmationErrorMessage()
-        };
+        );
         // Turns the wait back on
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         return output;

@@ -8,14 +8,13 @@ Feature: CreateAccount
     Given I am on the registration page
 
   @Happy
-  Scenario: Creating a new account with valid information
+  Scenario Outline: Creating a new account with valid information
     When I enter the registration details "<firstname>""<lastname>""<email>""<password>""<password_confirmation>"
     Then my account should be created successfully
     And I should be taken to my account dashboard
-    And I should see a welcome message
     Examples:
-      | firstname | lastname  | email           | password    | password_confirmation   |
-      | Test      | McGee     | Test5@email.com | password123!| password123!            |
+      | firstname | lastname | email           | password     | password_confirmation |
+      | Test      | McGee    | Test5@email.com | password123! | password123!          |
 
   @Sad
   Scenario Outline: Creating a new account with invalid password
