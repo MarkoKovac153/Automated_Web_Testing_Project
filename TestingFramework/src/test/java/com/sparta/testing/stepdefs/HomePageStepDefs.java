@@ -1,6 +1,7 @@
 package com.sparta.testing.stepdefs;
 
 import com.sparta.testing.pages.Website;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 
@@ -10,7 +11,7 @@ import java.util.Arrays;
 
 public class HomePageStepDefs {
 
-    private Website website;
+    protected Website website;
     private static final String BASE_URL = "https://magento.softwaretestingboard.com/";
 
     @Before
