@@ -22,12 +22,12 @@ jobs:
 
       - name: Download and Install GeckoDriver
         run: |
-          mkdir -p Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers
+          mkdir -p /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers
           wget https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz
-          tar -xzf geckodriver-v0.33.0-linux64.tar.gz -C Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers
-          mv Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers/geckodriver Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers/geckodriver-linux
+          tar -xzf geckodriver-v0.33.0-linux64.tar.gz -C /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers
+          mv /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers/geckodriver /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers/geckodriver-linux
 
-      - run: Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers/geckodriver-linux --version
+      - run: /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers-linux --version
 
       - name: installing chrome and chrome driver
         uses: nanasess/setup-chromedriver@v2
@@ -43,4 +43,7 @@ jobs:
       
       - name: Step 3 - Build with Maven
         run: mvn -B package --file TestingFramework/pom.xml
+
+
+  
   
