@@ -29,11 +29,24 @@ public class TestSetup {
     private static String myOS;
     private static BrowserType myBrowser;
 
+    /**
+     * Navigates to the specified URL using the current WebDriver instance and returns a new Website object.
+     *
+     * @param url The URL to navigate to.
+     * @return A Website object initialized with the current WebDriver instance.
+     */
     public static Website getWebsite(String url) {
         webDriver.get(url);
         return new Website(webDriver);
     }
 
+    /**
+     * Starts the WebDriver service based on the browser type specified by the Browser annotation in the given test class.
+     * If no annotation is present, the default browser for the operating system is detected and used.
+     *
+     * @param testClass The test class containing the Browser annotation.
+     * @throws UnsupportedOperationException if the detected default browser is not supported.
+     */
     public static void startService(Class<?> testClass) {
         Browser annotation = testClass.getAnnotation(Browser.class);
 
@@ -55,6 +68,11 @@ public class TestSetup {
         startService();
     }
 
+    /**
+     * Creates a new WebDriver instance based on the previously determined browser type.
+     *
+     * @throws UnsupportedOperationException if the browser type is not supported.
+     */
     public static void createWebDriver() {
         switch (myBrowser) {
             case FIREFOX -> webDriver = new RemoteWebDriver(firefoxService.getUrl(), getFirefoxOptions());
@@ -65,6 +83,9 @@ public class TestSetup {
         }
     }
 
+    /**
+     * Stops the WebDriver service and quits the WebDriver instance, ensuring all browser processes are terminated.
+     */
     public static void stopService() {
         if (webDriver != null) {
             webDriver.quit();
@@ -74,6 +95,11 @@ public class TestSetup {
         forceKillDrivers();
     }
 
+    /**
+     * Forces the termination of WebDriver processes for various browsers, depending on the operating system.
+     *
+     * @throws UnsupportedOperationException if the operating system is not supported.
+     */
     public static void forceKillDrivers() {
         String[] command = null;
         if (myOS.contains("win")) {
