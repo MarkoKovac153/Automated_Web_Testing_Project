@@ -20,6 +20,19 @@ jobs:
           distribution: 'temurin'
           cache: maven
           
+      - name: Download and Install Chrome
+        run: |
+          wget https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.86/win64/chrome-win64.zip -O chrome.zip
+          unzip chrome.zip -d /usr/local/
+          sudo mv /usr/local/chrome-win64 /usr/local/chrome
+          sudo ln -s /usr/local/chrome/chrome /usr/local/bin/google-chrome
+
+      - name: Download and Install ChromeDriver
+        run: |
+          wget https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.86/win64/chromedriver-win64.zip -O chromedriver.zip
+          unzip chromedriver.zip -d /usr/local/bin/
+          sudo chmod +x /usr/local/bin/chromedriver
+          
       - name: Step 3 - Build with Maven
         run: mvn -B package -DskipTests=true --file TestingFramework/pom.xml
   
