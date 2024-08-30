@@ -19,19 +19,28 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-          
-      - name: Download and Install Chrome
-        run: |
-          wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.86/win64/chrome-win64.zip -O chrome.zip
-          unzip chrome.zip -d /usr/local/
-          sudo mv /usr/local/chrome-win64 /usr/local/chrome
-          sudo ln -s /usr/local/chrome/chrome /usr/local/bin/google-chrome
 
-      - name: Download and Install ChromeDriver
-        run: |
-          wget https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.86/win64/chromedriver-win64.zip -O chromedriver.zip
-          unzip chromedriver.zip -d /usr/local/bin/
-          sudo chmod +x /usr/local/bin/chromedriver
+      - name: installing chrome and chrome driver
+      - uses: nanasess/setup-chromedriver@v2
+       
+
+      - run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
+          
+      # - name: Download and Install Chrome
+      #   run: |
+      #     wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.86/win64/chrome-win64.zip -O chrome.zip
+      #     unzip chrome.zip -d /usr/local/
+      #     sudo mv /usr/local/chrome-win64 /usr/local/chrome
+      #     sudo ln -s /usr/local/chrome/chrome /usr/local/bin/google-chrome
+
+      # - name: Download and Install ChromeDriver
+      #   run: |
+      #     wget https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.86/win64/chromedriver-win64.zip -O chromedriver.zip
+      #     unzip chromedriver.zip -d /usr/local/bin/
+      #     sudo chmod +x /usr/local/bin/chromedriver
           
       - name: Step 3 - Build with Maven
         run: mvn -B package -DskipTests=true --file TestingFramework/pom.xml
