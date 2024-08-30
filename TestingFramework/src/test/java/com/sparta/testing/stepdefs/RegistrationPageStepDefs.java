@@ -34,6 +34,8 @@ public class RegistrationPageStepDefs {
     public void iAmOnTheRegistrationPage() {
         website = TestSetup.getWebsite(BASE_URL);
     }
+    @When ("I enter my registration details")
+    
 
     @When("I enter my first name {string}")
     public void iEnterMyFirstName(String firstname) {

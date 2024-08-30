@@ -22,16 +22,48 @@ public class RegistrationPage {
     private final By passwordErrorField = new By.ById("password-error");
     private final By password_confirmationErrorField = new By.ById("password-confirmation-error");
 
+    public RegistrationPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    // Registration model fields
     private String firstname;
     private String lastname;
     private String email;
     private String password;
     private String password_confirmation;
-
-    public RegistrationPage(WebDriver driver) {
-        this.driver = driver;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
-
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public void setPassword_confirmation(String password_confirmation) {
+        this.password_confirmation = password_confirmation;
+    }
+    // Registration model
+    public RegistrationPage(String firstname, String lastname, String email, String password, String password_confirmation) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.password_confirmation = password_confirmation;
+    }
+    // Registration
+    public void registerAccount(RegistrationPage registrationPage) {
+        enterFirstName(registrationPage.firstname);
+        enterLastName(registrationPage.lastname);
+        enterEmail(registrationPage.email);
+        enterPassword(registrationPage.password);
+        enterPasswordConfirmation(registrationPage.password_confirmation);
+        clickRegister();
+    }
     public void enterFirstName(String firstname) {
         driver.findElement(this.firstnameField).sendKeys(firstname);
     }
@@ -50,15 +82,8 @@ public class RegistrationPage {
     public void clickRegister() {
         driver.findElement(registerButton).click();
     }
-    public void registerAccount(String firstname, String lastname, String email, String password, String password_confirmation) {
-        driver.findElement(firstnameField).sendKeys(firstname);
-        driver.findElement(lastnameField).sendKeys(lastname);
-        driver.findElement(emailField).sendKeys(email);
-        driver.findElement(passwordField).sendKeys(password);
-        driver.findElement(password_confirmationField).sendKeys(password_confirmation);
-        driver.findElement(registerButton).click();
-    }
 
+    // Error Messages
     public String[] getErrors() {
         // Turns off the wait when not finding an element
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));

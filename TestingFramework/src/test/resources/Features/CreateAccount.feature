@@ -35,6 +35,11 @@ Feature: CreateAccount
       | Nishy     |
 
     # TODO: change login credentials into a table
+  @Sad
+  Scenario: Creating a new account with invalid password
+    Given I am on the registration page
+    When I enter my registration details
+    Then I should see an error message that contains "length of this field must be equal or greater than 8 symbols"
 
   @Sad
   Scenario: Creating a new account with invalid email
