@@ -9,6 +9,7 @@ public class Website {
     private final SearchPage searchPage;
     private final RegistrationPage registrationPage;
     private final AccountPage accountPage;
+    private final LoginPage loginPage;
 
 
     public Website(WebDriver webDriver){
@@ -18,6 +19,7 @@ public class Website {
         registrationPage = new RegistrationPage(webDriver);
         accountPage = new AccountPage(webDriver);
         searchPage = new SearchPage(webDriver);
+        loginPage = new LoginPage(webDriver);
     }
 
     public HomePage getHomePage(){
@@ -34,6 +36,9 @@ public class Website {
     }
     public AccountPage getAccountPage(){
         return accountPage;
+    }
+    public LoginPage getLoginPage(){
+        return loginPage;
     }
     public String getCurrentUrl(){
         return webDriver.getCurrentUrl();
