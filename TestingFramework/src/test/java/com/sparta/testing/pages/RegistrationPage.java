@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 public class RegistrationPage {
 
@@ -47,21 +46,14 @@ public class RegistrationPage {
     public void setPassword_confirmation(String password_confirmation) {
         this.password_confirmation = password_confirmation;
     }
-    // Registration model
-    public RegistrationPage(String firstname, String lastname, String email, String password, String password_confirmation) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-        this.password_confirmation = password_confirmation;
-    }
+
     // Registration
-    public void registerAccount(RegistrationPage registrationPage) {
-        enterFirstName(registrationPage.firstname);
-        enterLastName(registrationPage.lastname);
-        enterEmail(registrationPage.email);
-        enterPassword(registrationPage.password);
-        enterPasswordConfirmation(registrationPage.password_confirmation);
+    public void registerAccount() {
+        enterFirstName(this.firstname);
+        enterLastName(this.lastname);
+        enterEmail(this.email);
+        enterPassword(this.password);
+        enterPasswordConfirmation(this.password_confirmation);
         clickRegister();
     }
     public void enterFirstName(String firstname) {

@@ -38,9 +38,11 @@ Feature: CreateAccount
   @Sad
   Scenario: Creating a new account with invalid password
     Given I am on the registration page
-    When I enter my registration details
+    When I enter my registration details <RegistrationPage>
     Then I should see an error message that contains "length of this field must be equal or greater than 8 symbols"
-
+    Examples:
+    | firstname , lastname  , email           , password , password_confirmation  |
+    | Test      , McGee     , Test1@email.com , password , password               |
   @Sad
   Scenario: Creating a new account with invalid email
     Given I am on the registration page

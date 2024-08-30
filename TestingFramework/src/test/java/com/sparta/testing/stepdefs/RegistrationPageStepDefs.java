@@ -1,5 +1,6 @@
 package com.sparta.testing.stepdefs;
 
+import com.sparta.testing.pages.RegistrationPage;
 import com.sparta.testing.pages.Website;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -34,14 +35,20 @@ public class RegistrationPageStepDefs {
     public void iAmOnTheRegistrationPage() {
         website = TestSetup.getWebsite(BASE_URL);
     }
-    @When ("I enter my registration details")
-    
+    @When ("I enter my registration details {RegistrationPage}")
+    public void iEnterMyRegistrationDetails() {
+        website.getRegistrationPage().setFirstname();
+        website.getRegistrationPage().setLastname();
+        website.getRegistrationPage().setEmail();
+        website.getRegistrationPage().setPassword();
+        website.getRegistrationPage().setPassword_confirmation();
+        website.getRegistrationPage().registerAccount();
+    }
 
     @When("I enter my first name {string}")
     public void iEnterMyFirstName(String firstname) {
         website.getRegistrationPage().enterFirstName(firstname);
     }
-
     @And("I enter my last name {string}")
     public void iEnterMyLastName(String lastname) {
         website.getRegistrationPage().enterLastName(lastname);
@@ -79,8 +86,4 @@ public class RegistrationPageStepDefs {
     @And("I should see a welcome message")
     public void iShouldSeeAWelcomeMessage() {
     }
-
-
-
-
 }
