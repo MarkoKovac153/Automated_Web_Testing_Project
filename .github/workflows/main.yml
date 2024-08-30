@@ -22,6 +22,9 @@ jobs:
 
       - name: Setup Geckodriver
         uses: browser-actions/setup-geckodriver@v0.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - run: geckodriver --version
             
 
       - name: installing chrome and chrome driver
