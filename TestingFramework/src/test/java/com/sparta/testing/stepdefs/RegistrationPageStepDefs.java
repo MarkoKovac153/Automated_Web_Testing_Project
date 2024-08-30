@@ -76,8 +76,10 @@ public class RegistrationPageStepDefs {
 
     @And("I should be taken to my account dashboard")
     public void iShouldBeTakenToMyAccountDashboard() {
+        Assert.assertEquals("https://magento.softwaretestingboard.com/customer/account/", website.getCurrentUrl());
     }
     @And("I should see a welcome message")
     public void iShouldSeeAWelcomeMessage() {
+        Assert.assertTrue(website.getRegistrationPage().getWelcomeMessage().contains("Welcome,"));
     }
 }
