@@ -55,9 +55,15 @@ Feature: CreateAccount
       | Test      | McGee     | Test1@email.com | wrong     | wrong                 |
       | Test      | McGee     | Test1@email.com | 12345     | 12345                 |
       | Test      | McGee     | Test1@email.com | Nishy     | p                     |
-
   @Sad
-  Scenario Outline: Creating a new account with invalid password
+  Scenario Outline: Creating a new account without a password confirmation
+    When I enter the registration details "<firstname>""<lastname>""<email>""<password>""<password_confirmation>"
+    Then I should see an error message that contains "required field"
+    Examples:
+      | firstname | lastname  | email           | password      | password_confirmation |
+      | Test      | McGee     | Test1@email.com | password123!  |                       |
+  @Sad
+  Scenario Outline: Creating a new account without matching password and confirmation
     When I enter the registration details "<firstname>""<lastname>""<email>""<password>""<password_confirmation>"
     Then I should see an error message that contains "enter the same value again"
     Examples:

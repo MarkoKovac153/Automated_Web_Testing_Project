@@ -1,6 +1,5 @@
 package com.sparta.testing.stepdefs;
 
-import com.sparta.testing.pages.RegistrationPage;
 import com.sparta.testing.pages.Website;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -8,14 +7,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.hamcrest.MatcherAssert;
 import org.junit.Assert;
 
-
-import java.io.IOException;
 import java.util.Arrays;
-
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class RegistrationPageStepDefs {
     private Website website;
