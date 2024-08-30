@@ -35,14 +35,9 @@ public class RegistrationPageStepDefs {
     public void iAmOnTheRegistrationPage() {
         website = TestSetup.getWebsite(BASE_URL);
     }
-    @When ("I enter my registration details {RegistrationPage}")
-    public void iEnterMyRegistrationDetails() {
-        website.getRegistrationPage().setFirstname();
-        website.getRegistrationPage().setLastname();
-        website.getRegistrationPage().setEmail();
-        website.getRegistrationPage().setPassword();
-        website.getRegistrationPage().setPassword_confirmation();
-        website.getRegistrationPage().registerAccount();
+    @When ("I enter the registration details {string}{string}{string}{string}{string}")
+    public void iEnterMyRegistrationDetails(String firstname, String lastname, String email, String password, String password_confirmation) {
+        website.getRegistrationPage().registerAccount(firstname, lastname, email, password, password_confirmation);
     }
 
     @When("I enter my first name {string}")
@@ -77,7 +72,6 @@ public class RegistrationPageStepDefs {
     @Then("I should see an error message that contains {string}")
     public void iShouldSeeAnErrorMessageThatContains(String errorMessage) {
         Assert.assertTrue(Arrays.stream(website.getRegistrationPage().getErrors()).anyMatch(s -> s.contains(errorMessage)));
-        //Assert.assertTrue(website.getRegistrationPage().passwordErrorMessage().contains(errorMessage));
     }
 
     @And("I should be taken to my account dashboard")

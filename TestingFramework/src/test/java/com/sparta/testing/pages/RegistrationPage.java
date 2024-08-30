@@ -2,6 +2,8 @@ package com.sparta.testing.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
@@ -14,6 +16,7 @@ public class RegistrationPage {
     private final By passwordField = new By.ById("password");
     private final By password_confirmationField = new By.ById("password-confirmation");
     private final By registerButton = new By.ByCssSelector("button.action.submit.primary");
+    private final By messageField = new By.ByCssSelector("div.message-error.error.message");
     private final By firstnameErrorField = new By.ById("firstname-error");
     private final By lastnameErrorField = new By.ById("lastname-error");
     private final By emailErrorField = new By.ById("email_address-error");
@@ -24,36 +27,13 @@ public class RegistrationPage {
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
     }
-
-    // Registration model fields
-    private String firstname;
-    private String lastname;
-    private String email;
-    private String password;
-    private String password_confirmation;
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public void setPassword_confirmation(String password_confirmation) {
-        this.password_confirmation = password_confirmation;
-    }
-
     // Registration
-    public void registerAccount() {
-        enterFirstName(this.firstname);
-        enterLastName(this.lastname);
-        enterEmail(this.email);
-        enterPassword(this.password);
-        enterPasswordConfirmation(this.password_confirmation);
+    public void registerAccount(String firstname, String lastname, String email, String password, String password_confirmation) {
+        enterFirstName(firstname);
+        enterLastName(lastname);
+        enterEmail(email);
+        enterPassword(password);
+        enterPasswordConfirmation(password_confirmation);
         clickRegister();
     }
     public void enterFirstName(String firstname) {
@@ -78,8 +58,9 @@ public class RegistrationPage {
     // Error Messages
     public String[] getErrors() {
         // Turns off the wait when not finding an element
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(0));
         String[] output = {
+                getMessage(),
                 firstnameErrorMessage(),
                 lastnameErrorMessage(),
                 emailErrorMessage(),
@@ -90,6 +71,15 @@ public class RegistrationPage {
         // Turns the wait back on
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         return output;
+    }
+    public String getMessage() {
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(driver -> !driver.findElements(messageField).isEmpty());
+        if (driver.findElements(messageField).isEmpty()) {
+            return "";
+        } else {
+            return driver.findElement(messageField).getText();
+        }
     }
     public String firstnameErrorMessage() {
         if (driver.findElements(firstnameErrorField).isEmpty()) {
@@ -134,4 +124,5 @@ public class RegistrationPage {
             return driver.findElement(password_confirmationErrorField).getText();
         }
     }
+
 }
