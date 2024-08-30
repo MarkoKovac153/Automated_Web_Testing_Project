@@ -1,5 +1,7 @@
 package com.sparta.testing.stepdefs;
 
+import com.sparta.testing.browser_annotation.Browser;
+import com.sparta.testing.browser_annotation.BrowserType;
 import com.sparta.testing.pages.Website;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -25,7 +27,96 @@ public class TestSetup {
     private static EdgeDriverService edgeService;
     private static WebDriver webDriver;
     private static String myOS;
-    private static String myBrowser;
+    private static BrowserType myBrowser;
+
+    /**
+     * Navigates to the specified URL using the current WebDriver instance and returns a new Website object.
+     *
+     * @param url The URL to navigate to.
+     * @return A Website object initialized with the current WebDriver instance.
+     */
+    public static Website getWebsite(String url) {
+        webDriver.get(url);
+        return new Website(webDriver);
+    }
+
+    /**
+     * Starts the WebDriver service based on the browser type specified by the Browser annotation in the given test class.
+     * If no annotation is present, the default browser for the operating system is detected and used.
+     *
+     * @param testClass The test class containing the Browser annotation.
+     * @throws UnsupportedOperationException if the detected default browser is not supported.
+     */
+    public static void startService(Class<?> testClass) {
+        Browser annotation = testClass.getAnnotation(Browser.class);
+
+        if (annotation != null) {
+            myBrowser = annotation.value();
+        } else {
+            myBrowser = BrowserType.DEFAULT;
+        }
+
+        if (myBrowser == BrowserType.DEFAULT) {
+            String defaultBrowser = detectDefaultBrowser().toUpperCase();
+            try {
+                myBrowser = BrowserType.valueOf(defaultBrowser);
+            } catch (IllegalArgumentException e) {
+                throw new UnsupportedOperationException("Detected default browser is not supported: " + defaultBrowser, e);
+            }
+        }
+
+        startService();
+    }
+
+    /**
+     * Creates a new WebDriver instance based on the previously determined browser type.
+     *
+     * @throws UnsupportedOperationException if the browser type is not supported.
+     */
+    public static void createWebDriver() {
+        switch (myBrowser) {
+            case FIREFOX -> webDriver = new RemoteWebDriver(firefoxService.getUrl(), getFirefoxOptions());
+            case CHROME, OPERA -> webDriver = new RemoteWebDriver(chromeService.getUrl(), getChromeOptions());
+            case EDGE -> webDriver = new RemoteWebDriver(edgeService.getUrl(), getEdgeOptions());
+            case SAFARI -> webDriver = new SafariDriver(getSafariOptions());
+            default -> throw new UnsupportedOperationException("Unsupported browser: " + myBrowser);
+        }
+    }
+
+    /**
+     * Stops the WebDriver service and quits the WebDriver instance, ensuring all browser processes are terminated.
+     */
+    public static void stopService() {
+        if (webDriver != null) {
+            webDriver.quit();
+            webDriver = null;
+        }
+
+        forceKillDrivers();
+    }
+
+    /**
+     * Forces the termination of WebDriver processes for various browsers, depending on the operating system.
+     *
+     * @throws UnsupportedOperationException if the operating system is not supported.
+     */
+    public static void forceKillDrivers() {
+        String[] command = null;
+        if (myOS.contains("win")) {
+            command = new String[]{"cmd.exe", "/c", "taskkill /F /IM chromedriver.exe /IM geckodriver.exe /IM msedgedriver.exe /IM operadriver.exe"};
+        } else if (myOS.contains("mac") || myOS.contains("nix") || myOS.contains("nux")) {
+            command = new String[]{"/bin/sh", "-c", "pkill -f chromedriver; pkill -f geckodriver; pkill -f msedgedriver; pkill -f operadriver"};
+        } else {
+            throw new UnsupportedOperationException("Unsupported operating system: " + myOS);
+        }
+
+        try {
+            Process process = new ProcessBuilder(command).start();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            System.err.println("Failed to force kill WebDriver processes: " + e.getMessage());
+        }
+    }
 
     private static String detectOS() {
         String os = System.getProperty("os.name").toLowerCase(Locale.ENGLISH);
@@ -139,8 +230,8 @@ public class TestSetup {
     private static String getDriverLocation() {
         String driverLocation = null;
 
-        switch (myBrowser.toLowerCase()) {
-            case "firefox" -> {
+        switch (myBrowser) {
+            case FIREFOX -> {
                 driverLocation = switch (myOS) {
                     case "windows" -> "src/test/resources/drivers/geckodriver.exe";
                     case "mac" -> "src/test/resources/drivers/geckodriver-mac";
@@ -148,7 +239,7 @@ public class TestSetup {
                     default -> throw new UnsupportedOperationException("Unsupported OS: " + myOS);
                 };
             }
-            case "chrome" -> {
+            case CHROME -> {
                 driverLocation = switch (myOS) {
                     case "windows" -> "src/test/resources/drivers/chromedriver.exe";
                     case "mac" -> "src/test/resources/drivers/chromedriver-mac";
@@ -156,7 +247,7 @@ public class TestSetup {
                     default -> throw new UnsupportedOperationException("Unsupported OS: " + myOS);
                 };
             }
-            case "edge" -> {
+            case EDGE -> {
                 driverLocation = switch (myOS) {
                     case "windows" -> "src/test/resources/drivers/msedgedriver.exe";
                     case "mac", "linux" ->
@@ -164,7 +255,7 @@ public class TestSetup {
                     default -> throw new UnsupportedOperationException("Unsupported OS: " + myOS);
                 };
             }
-            case "opera" -> {
+            case OPERA -> {
                 driverLocation = switch (myOS) {
                     case "windows" -> "src/test/resources/drivers/operadriver.exe";
                     case "mac" -> "src/test/resources/drivers/operadriver-mac";
@@ -172,7 +263,7 @@ public class TestSetup {
                     default -> throw new UnsupportedOperationException("Unsupported OS: " + myOS);
                 };
             }
-            case "safari" -> {
+            case SAFARI -> {
                 if (!myOS.equals("mac")) {
                     throw new UnsupportedOperationException("Safari is only supported on macOS.");
                 }
@@ -210,36 +301,22 @@ public class TestSetup {
         return options;
     }
 
-    public static Website getWebsite(String url) {
-        webDriver.get(url);
-        return new Website(webDriver);
-    }
-
-    public static void startServiceWithDefaultBrowser() {
-        myBrowser = detectDefaultBrowser();
-        startService();
-    }
-
-    public static void startServiceWithBrowser(String browser) {
-        myBrowser = browser;
-        startService();
-    }
-
     private static void startService() {
         if (myBrowser == null) {
-            throw new IllegalStateException("Browser not set. Use setBrowser() or set myBrowser directly.");
+            throw new IllegalStateException("Browser not set. Use startService(Class<?> testClass) or set myBrowser directly.");
         }
 
         String driverLocation = getDriverLocation();
         if (driverLocation != null) {
-            System.setProperty("webdriver." + myBrowser.toLowerCase() + ".driver", driverLocation);
+            System.setProperty("webdriver." + myBrowser.name().toLowerCase() + ".driver", driverLocation);
         }
 
-        switch (myBrowser.toLowerCase()) {
-            case "firefox" -> {
+        switch (myBrowser) {
+            case FIREFOX -> {
                 firefoxService = new GeckoDriverService.Builder()
                         .usingDriverExecutable(new File(driverLocation))
                         .usingAnyFreePort()
+                        .withTimeout(Duration.ofSeconds(10))
                         .build();
                 try {
                     firefoxService.start();
@@ -247,10 +324,11 @@ public class TestSetup {
                     throw new RuntimeException("Failed to start Firefox service.", e);
                 }
             }
-            case "chrome" -> {
+            case CHROME -> {
                 chromeService = new ChromeDriverService.Builder()
                         .usingDriverExecutable(new File(driverLocation))
                         .usingAnyFreePort()
+                        .withTimeout(Duration.ofSeconds(10))
                         .build();
                 try {
                     chromeService.start();
@@ -258,10 +336,11 @@ public class TestSetup {
                     throw new RuntimeException("Failed to start Chrome service.", e);
                 }
             }
-            case "edge" -> {
+            case EDGE -> {
                 edgeService = new EdgeDriverService.Builder()
                         .usingDriverExecutable(new File(driverLocation))
                         .usingAnyFreePort()
+                        .withTimeout(Duration.ofSeconds(10))
                         .build();
                 try {
                     edgeService.start();
@@ -269,13 +348,14 @@ public class TestSetup {
                     throw new RuntimeException("Failed to start Edge service.", e);
                 }
             }
-            case "safari" -> {
+            case SAFARI -> {
                 // Safari doesn't require a separate service
             }
-            case "opera" -> {
+            case OPERA -> {
                 chromeService = new ChromeDriverService.Builder()
                         .usingDriverExecutable(new File(driverLocation))
                         .usingAnyFreePort()
+                        .withTimeout(Duration.ofSeconds(10))
                         .build();
                 try {
                     chromeService.start();
@@ -284,34 +364,6 @@ public class TestSetup {
                 }
             }
             default -> throw new UnsupportedOperationException("Unsupported browser: " + myBrowser);
-        }
-    }
-
-    public static void createWebDriver() {
-        switch (myBrowser.toLowerCase()) {
-            case "firefox" -> webDriver = new RemoteWebDriver(firefoxService.getUrl(), getFirefoxOptions());
-            case "chrome", "opera" -> webDriver = new RemoteWebDriver(chromeService.getUrl(), getChromeOptions());
-            case "edge" -> webDriver = new RemoteWebDriver(edgeService.getUrl(), getEdgeOptions());
-            case "safari" -> webDriver = new SafariDriver(getSafariOptions());
-            default -> throw new UnsupportedOperationException("Unsupported browser: " + myBrowser);
-        }
-    }
-
-    public static void stopService() {
-        if (webDriver != null) {
-            webDriver.quit();
-        }
-
-        if (firefoxService != null && firefoxService.isRunning()) {
-            firefoxService.stop();
-        }
-
-        if (chromeService != null && chromeService.isRunning()) {
-            chromeService.stop();
-        }
-
-        if (edgeService != null && edgeService.isRunning()) {
-            edgeService.stop();
         }
     }
 }
