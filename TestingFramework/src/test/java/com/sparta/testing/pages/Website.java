@@ -7,12 +7,14 @@ public class Website {
     private final HomePage homePage;
     private final InventoryPage inventoryPage;
     private final RegistrationPage registrationPage;
+    private final AccountPage accountPage;
 
     public Website(WebDriver webDriver){
         this.webDriver = webDriver;
         homePage = new HomePage(webDriver);
         inventoryPage = new InventoryPage(webDriver);
         registrationPage = new RegistrationPage(webDriver);
+        accountPage = new AccountPage(webDriver);
     }
 
     public HomePage getHomePage(){
@@ -23,6 +25,9 @@ public class Website {
     }
     public RegistrationPage getRegistrationPage(){
         return registrationPage;
+    }
+    public AccountPage getAccountPage(){
+        return accountPage;
     }
     public String getCurrentUrl(){
         return webDriver.getCurrentUrl();

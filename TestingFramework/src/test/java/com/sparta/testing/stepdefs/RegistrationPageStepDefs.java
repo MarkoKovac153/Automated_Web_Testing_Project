@@ -67,15 +67,15 @@ public class RegistrationPageStepDefs {
 
     @Then("I should see an error message that contains {string}")
     public void iShouldSeeAnErrorMessageThatContains(String errorMessage) {
-        Assert.assertTrue(website.getRegistrationPage().getErrors().contains(errorMessage));
+        Assert.assertTrue(Arrays.stream(website.getRegistrationPage().getErrors()).anyMatch(e -> e.contains(errorMessage)));
     }
 
-    @Then("my account should be created successfully")
-    public void myAccountShouldBeCreatedSuccessfully() {
-        Assert.assertTrue(website.getRegistrationPage().getWelcomeMessage().contains("Welcome,"));
-    }
-    @And("I should be taken to my account dashboard")
+    @Then("I should be taken to my account dashboard")
     public void iShouldBeTakenToMyAccountDashboard() {
         Assert.assertEquals("https://magento.softwaretestingboard.com/customer/account/", website.getCurrentUrl());
+    }
+    @And("my account should be created successfully")
+    public void myAccountShouldBeCreatedSuccessfully() {
+        Assert.assertTrue(website.getAccountPage().getMessage().contains("Thank you for registering"));
     }
 }

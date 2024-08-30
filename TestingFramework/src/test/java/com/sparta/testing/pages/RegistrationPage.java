@@ -1,6 +1,7 @@
 package com.sparta.testing.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class RegistrationPage {
 
@@ -58,10 +60,10 @@ public class RegistrationPage {
     }
 
     // Error Messages
-    public List<String> getErrors() {
+    public String[] getErrors() {
         // Turns off the wait when not finding an element
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(0));
-        List<String> output = Arrays.asList(
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(100));
+        String[] output = {
                 getMessage(),
                 firstnameErrorMessage(),
                 lastnameErrorMessage(),
@@ -69,18 +71,18 @@ public class RegistrationPage {
                 passwordErrorMessage(),
                 passwordStrengthErrorMessage(),
                 passwordConfirmationErrorMessage()
-        );
+        };
         // Turns the wait back on
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         return output;
     }
-    public String getMessage() {
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(driver -> !driver.findElements(messageField).isEmpty());
-        if (driver.findElements(messageField).isEmpty()) {
-            return "";
-        } else {
+    public String getMessage(){
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+            wait.until(driver -> driver.findElement(messageField).isDisplayed());
             return driver.findElement(messageField).getText();
+        } catch (TimeoutException | NoSuchElementException ignored) {
+            return "";
         }
     }
     public String firstnameErrorMessage() {
