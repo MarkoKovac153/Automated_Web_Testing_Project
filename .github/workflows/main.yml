@@ -41,5 +41,5 @@ jobs:
       #     sudo chmod +x /usr/local/bin/chromedriver
           
       - name: Step 3 - Build with Maven
-        run: mvn -B package -DskipTests=true --file TestingFramework/pom.xml
+        run: mvn -B package --file TestingFramework/pom.xml
   
