@@ -20,6 +20,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Setup Geckodriver
+        uses: browser-actions/setup-geckodriver@v0.0.0
+            
+
       - name: installing chrome and chrome driver
         uses: nanasess/setup-chromedriver@v2
       - run: |
