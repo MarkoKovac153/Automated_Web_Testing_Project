@@ -21,7 +21,7 @@ jobs:
           cache: maven
           
       - name: Step 3 - Build with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn -B package --file TestingFramework/pom.xml
   
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Step 4 - Update dependency graph
