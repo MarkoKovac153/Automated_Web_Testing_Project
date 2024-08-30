@@ -11,5 +11,4 @@ import org.junit.runner.RunWith;
         publish = true,
         tags = "not @Happy"
 )
-public class TestRunner {
-}
+public class TestRunner {}
