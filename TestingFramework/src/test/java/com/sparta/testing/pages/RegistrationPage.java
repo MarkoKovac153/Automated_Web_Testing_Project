@@ -60,8 +60,9 @@ public class RegistrationPage {
     }
 
     public String[] getErrors() {
+        // Turns off the wait when not finding an element
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
-        return new String[] {
+        String[] output = {
                 firstnameErrorMessage(),
                 lastnameErrorMessage(),
                 emailErrorMessage(),
@@ -69,6 +70,9 @@ public class RegistrationPage {
                 passwordStrengthErrorMessage(),
                 passwordConfirmationErrorMessage()
         };
+        // Turns the wait back on
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        return output;
     }
     public String firstnameErrorMessage() {
         if (driver.findElements(firstnameErrorField).isEmpty()) {
