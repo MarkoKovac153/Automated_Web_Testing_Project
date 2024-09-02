@@ -1,4 +1,4 @@
-Feature: Login
+Feature: NavBar
 
   In order to be able to buy items
   As a registered user of the Sauce Labs website
@@ -8,18 +8,25 @@ Feature: Login
     Given I am on any non-checkout page
 
   @Happy
-  Scenario: Open the what's new page
-    When I click the what's new button
-    Then I should land on the what's new page
-
-  @Sad
-  Scenario Outline: Login with valid username and invalid password
-    And I have entered the username "standard_user"
-    And I have entered the password "<passwords>"
-    When I click the login button
-    Then I should see an error message that contains "Epic sadface"
+  Scenario Outline: Open Each Page From Navbar
+    When I click the <button> button
+    Then I should land on the <page> page
     Examples:
-      | passwords |
-      | wrong     |
-      | 12345     |
-      | Nishy     |
+      | button       | page          |
+      | "What's New" | "what-is-new" |
+      | "Women"      | "women"       |
+      | "Men"        | "men"         |
+      | "Gear"       | "gear"        |
+      | "Training"   | "training"    |
+      | "Sale"       | "sale"        |
+
+    @Happy
+    Scenario Outline: Hover over dropdowns
+      When I hover over the <button> button
+      Then I should see the <submenu> dropdown appear
+      Examples:
+        | button       | submenu          |
+        | "Women"      | "Women"       |
+        | "Men"        | "Men"         |
+        | "Gear"       | "Gear"        |
+        | "Training"   | "Training"    |

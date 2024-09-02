@@ -13,16 +13,16 @@ public class HomePageStepDefs {
     private Website website;
     private static final String BASE_URL = "https://magento.softwaretestingboard.com/";
 
-    @Before
-    public void beforeEach() {
-        TestSetup.startService(this.getClass());
-        TestSetup.createWebDriver();
-    }
-
-    @After
-    public void afterEach() {
-        TestSetup.stopService();
-    }
+//    @Before
+//    public void beforeEach() {
+//        TestSetup.startService(this.getClass());
+//        TestSetup.createWebDriver();
+//    }
+//
+//    @After
+//    public void afterEach() {
+//        TestSetup.stopService();
+//    }
 
 
 }
