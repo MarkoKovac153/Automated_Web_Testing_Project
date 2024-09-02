@@ -3,7 +3,6 @@ package com.sparta.testing.stepdefs;
 import com.sparta.testing.pages.Website;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterAll;
-import io.cucumber.java.Before;
 import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -66,7 +65,7 @@ public class NavbarStepDefs {
 
     @Then("I should see the {string} dropdown appear")
     public void iShouldSeeTheSubmenuAppear(String submenu) {
-        MatcherAssert.assertThat(website.getHomePage().isDropDownVisible(submenu), is(true));
+        MatcherAssert.assertThat(website.getHomePage().isDropdownVisible(submenu), is(true));
     }
 
     @And("I click on the {string} dropdown button")
@@ -77,5 +76,20 @@ public class NavbarStepDefs {
     @Then("I should land on the {string}'s {string} page")
     public void iShouldLandOnThePage(String category, String page) {
         MatcherAssert.assertThat(website.getCurrentUrl(), containsString("/" + category.toLowerCase() + "/" + page + ".html"));
+    }
+
+    @And("I hover over the {string} dropdown option")
+    public void iHoverOverTheDropdownOption(String dropdown) {
+        website.getHomePage().hoverButtonOnDropdown(dropdown);
+    }
+
+    @Then("I should see the {string} dropdown appear under {string}")
+    public void iShouldSeeTheDropdownAppearUnder(String dropdown, String button) {
+        MatcherAssert.assertThat(website.getHomePage().isSubmenuVisible(button, dropdown), is(true));
+    }
+
+    @And("I click on the {string}'s {string} dropdown button")
+    public void iClickOnTheDropdownButton(String dropdown, String button) {
+        website.getHomePage().clickLinkOnSubmenu(dropdown, button);
     }
 }

@@ -346,7 +346,7 @@ public class TestSetup {
 
     private static FirefoxOptions getFirefoxOptions() {
         FirefoxOptions options = new FirefoxOptions();
-        options.addArguments("--headless");
+        //options.addArguments("--headless");
         options.addArguments("--start-maximized");
         options.setImplicitWaitTimeout(Duration.ofSeconds(10));
         return options;
