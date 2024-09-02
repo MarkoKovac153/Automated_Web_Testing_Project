@@ -44,7 +44,7 @@ mvn clean install
 
 **ChromeDriver:**
 * Ensure chromedriver.exe is either:   
-* Placed in the following directory within the project: 'TestingFramework/src/test/resources/drivers/chromedriver'
+* Placed in the following directory within the project: 'TestingFramework/src/test/resources/drivers'
 * If you're using a different location, set the ChromeDriver path in your test configuration:
   
 ```java
@@ -53,11 +53,20 @@ System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
 
 **GeckoDriver (for Firefox):**
 * Ensure 'geckodriver' is either:
-* Located in your system’s PATH, or Placed in the following directory within the project: TestingFramework/src/test/resources/drivers/geckodriver
+* Located in your system’s PATH, or Placed in the following directory within the project: 'TestingFramework/src/test/resources/drivers'
 * If you're using a different location, set the GeckoDriver path in your test configuration:
 
 ```java
 System.setProperty("webdriver.gecko.driver", "path/to/geckodriver");
+```
+
+**EdgeDriver:**
+* Ensure msedgedriver.exe is either:   
+* Placed in the following directory within the project: 'TestingFramework/src/test/resources/drivers'
+* If you're using a different location, set the edgedriver path in your test configuration:
+
+```java
+System.setProperty("webdriver.edge.driver", "path/to/msedgedriver");
 ```
 
 ### What Was Tested -
