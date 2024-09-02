@@ -21,17 +21,17 @@ jobs:
           cache: maven
 
       
-      - name: Step 3 - setup edge 
-        uses: browser-actions/setup-edge@v1
+      # - name: Step 3 - setup edge 
+      #   uses: browser-actions/setup-edge@v1
 
-      - name: Step 4 - Download and Install GeckoDriver
-        run: |
-          mkdir -p /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers
-          wget https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz
-          tar -xzf geckodriver-v0.33.0-linux64.tar.gz -C /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers
-          mv /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers/geckodriver /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers/geckodriver-linux
+      # - name: Step 4 - Download and Install GeckoDriver
+      #   run: |
+      #     mkdir -p /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers
+      #     wget https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz
+      #     tar -xzf geckodriver-v0.33.0-linux64.tar.gz -C /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers
+      #     mv /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers/geckodriver /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers/geckodriver-linux
 
-      - run: /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers/geckodriver-linux --version
+      # - run: /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers/geckodriver-linux --version
 
 
       - name: Step 5 - installing chrome and chrome driver
