@@ -89,7 +89,7 @@ Negative paths (sad paths) to test the system's behavior in failure scenarios.
 
 (Report here :))
 
-**Defects: **
+**Defects:**
 
 (defects here)
 
@@ -103,3 +103,9 @@ Continuous Integration: A GitHub Actions workflow is set up to run tests automat
 
 ### Conclusion -
 This project demonstrates the development of an automated testing framework that ensures the key functionalities of an eCommerce website are rigorously tested. By leveraging the POM pattern and Gherkin syntax, the tests are structured, maintainable, and aligned with user stories derived from actual user journeys.
+
+### Contributing -
+Placement: Near the end of the README, just before the "Conclusion" section. This section is where contributors would look for guidelines.
+
+### License -
+Placement: At the very end of the README. This is typically where licensing information is found in most open-source projects.
