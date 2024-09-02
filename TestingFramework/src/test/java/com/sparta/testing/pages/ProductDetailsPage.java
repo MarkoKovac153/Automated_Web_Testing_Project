@@ -67,9 +67,6 @@ public class ProductDetailsPage {
     }
 
     public int getCartCounter() {
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(4));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(cartCounter));
-
         String cartCountText = webDriver.findElement(cartCounter).getText();
         if(cartCountText.isEmpty()){
             return 0;
