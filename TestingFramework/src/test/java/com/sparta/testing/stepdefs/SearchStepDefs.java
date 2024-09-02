@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.*;
 
 public class SearchStepDefs{
 
-    protected Website website;
+    private Website website;
     private static final String BASE_URL = "https://magento.softwaretestingboard.com/";
 
     @Before
