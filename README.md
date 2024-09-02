@@ -1,4 +1,4 @@
-# Automated_Web_Testing_Project -
+# Automated_Web_Testing_Project
 
 ### Summary -
 
@@ -105,12 +105,29 @@ Continuous Integration: A GitHub Actions workflow is set up to run tests automat
 This project demonstrates the development of an automated testing framework that ensures the key functionalities of an eCommerce website are rigorously tested. By leveraging the POM pattern and Gherkin syntax, the tests are structured, maintainable, and aligned with user stories derived from actual user journeys.
 
 ### Contributing -
-* Katherine - Professional GitHub Committer
-* Gilbert - Code Kata Overseer
-* Devin - Master Tester
-* Marko - Scrum Overlord
+* Katherine - Java Tester
+* Gilbert - Java Tester
+* Devin - Java Tester
+* Marko - Scrum Master
 
 ### License -
-* Chrome driver license
-* Edge driver license
-* Gecko Driver license (firefox)
+MIT License
+Copyright (c) 2024 TEAM A
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
