@@ -35,8 +35,9 @@ jobs:
         run: |
           wget https://github.com/operasoftware/operachromiumdriver/releases/download/v.96.0.4664.45/operadriver_linux64.zip
           unzip operadriver_linux64.zip -d operadriver
-          sudo mv operadriver/operadriver /usr/local/bin/
+          sudo mv operadriver/operadriver_linux64/operadriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/operadriver
+
 
       - name: Step 4 - Download and Install GeckoDriver
         run: |
