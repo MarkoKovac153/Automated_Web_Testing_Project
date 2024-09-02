@@ -20,13 +20,29 @@ Feature: NavBar
       | "Training"   | "training"    |
       | "Sale"       | "sale"        |
 
-    @Happy
-    Scenario Outline: Hover over dropdowns
-      When I hover over the <button> button
-      Then I should see the <submenu> dropdown appear
-      Examples:
-        | button       | submenu          |
-        | "Women"      | "Women"       |
-        | "Men"        | "Men"         |
-        | "Gear"       | "Gear"        |
-        | "Training"   | "Training"    |
+  @Happy
+  Scenario Outline: Hover over dropdowns
+    When I hover over the <button> button
+    Then I should see the <submenu> dropdown appear
+    Examples:
+      | button     | submenu    |
+      | "Women"    | "Women"    |
+      | "Men"      | "Men"      |
+      | "Gear"     | "Gear"     |
+      | "Training" | "Training" |
+
+  @Happy
+  Scenario Outline: Click on dropdowns
+    When I hover over the <button> button
+    And I click on the <dropdown> dropdown button
+    Then I should land on the <button>'s <page> page
+    Examples:
+      | button     | dropdown            | page                |
+      | "Women"    | "Tops"              | "tops-women"        |
+      | "Women"    | "Bottoms"           | "bottoms-women"     |
+      | "Men"      | "Tops"              | "tops-men"          |
+      | "Men"      | "Bottoms"           | "bottoms-men"       |
+      | "Gear"     | "Bags"              | "bags"              |
+      | "Gear"     | "Fitness Equipment" | "fitness-equipment" |
+      | "Gear"     | "Watches"           | "watches"           |
+      | "Training" | "Video Download"    | "training-video"    |

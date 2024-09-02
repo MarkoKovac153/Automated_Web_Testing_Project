@@ -5,6 +5,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
 import io.cucumber.java.BeforeAll;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -66,5 +67,15 @@ public class NavbarStepDefs {
     @Then("I should see the {string} dropdown appear")
     public void iShouldSeeTheSubmenuAppear(String submenu) {
         MatcherAssert.assertThat(website.getHomePage().isDropDownVisible(submenu), is(true));
+    }
+
+    @And("I click on the {string} dropdown button")
+    public void iClickOnTheDropdownDropdownButton(String dropdown) {
+        website.getHomePage().clickLinkOnDropdownMenu(dropdown);
+    }
+
+    @Then("I should land on the {string}'s {string} page")
+    public void iShouldLandOnThePage(String category, String page) {
+        MatcherAssert.assertThat(website.getCurrentUrl(), containsString("/" + category.toLowerCase() + "/" + page + ".html"));
     }
 }

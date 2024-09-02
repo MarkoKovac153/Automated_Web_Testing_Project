@@ -16,6 +16,7 @@ public class HomePage {
     private final WebDriver driver;
     private final By navbar = new By.ByClassName("navigation");
     private final By listItem = new By.ByTagName("li");
+    private WebElement dropdownElement;
 
     private final WebDriverWait wait;
     private String username;
@@ -57,7 +58,7 @@ public class HomePage {
                 By submenuXPath = By.xpath("//a/span[text()='" + button + "']/ancestor::li//ul[contains(@class, 'submenu')]");
 
                 try {
-                    WebElement submenuElement = wait.until(ExpectedConditions.visibilityOfElementLocated(submenuXPath));
+                    dropdownElement = wait.until(ExpectedConditions.visibilityOfElementLocated(submenuXPath));
                     System.out.println("Submenu is visible.");
                 } catch (TimeoutException e) {
                     System.err.println("Submenu not visible for: " + button + " - " + e.getMessage());
@@ -72,22 +73,11 @@ public class HomePage {
         By submenuXPath = By.xpath("//a/span[text()='" + button + "']/ancestor::li//ul[contains(@class, 'submenu')]");
 
         try {
-            WebElement dropDownElement = driver.findElement(submenuXPath);
-            return dropDownElement.isDisplayed();
+            dropdownElement = driver.findElement(submenuXPath);
+            return dropdownElement.isDisplayed();
         } catch (NoSuchElementException | TimeoutException e) {
             System.out.println("Dropdown not visible for: " + button + " - " + e.getMessage());
             return false;
-        }
-    }
-
-    private void hoverButton(List<WebElement> navbarLinks, String button) {
-        Actions actions = new Actions(driver);
-
-        for (WebElement navbarLink : navbarLinks) {
-            if (navbarLink.getText().contains(button)) {
-                actions.moveToElement(navbarLink).perform();
-                return;
-            }
         }
     }
 
@@ -102,30 +92,12 @@ public class HomePage {
         System.out.println("Link with text '" + linkText + "' not found.");
     }
 
+    public void clickLinkOnDropdownMenu(String button) {
+        List<WebElement> dropdownLinks = getDropdownElements();
+        clickLink(dropdownLinks, button);
+    }
 
-//    public void login(String username, String password) {
-//        driver.findElement(usernameField).sendKeys(username);
-//        driver.findElement(passwordField).sendKeys(password);
-//        driver.findElement(loginButton).click();
-//    }
-//
-//    public String waitForErrorMessage(){
-//        Wait<WebDriver> webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(errorBox));
-//        return driver.findElement(errorBox).findElement(By.tagName("h3")).getText();
-//    }
-//
-//    public void enterUserName(String username) {
-//        this.username = username;
-//    }
-//
-//    public void enterPassword(String password) {
-//        this.password = password;
-//    }
-//
-//    public void clickLoginButton() {
-//        driver.findElement(usernameField).sendKeys(username);
-//        driver.findElement(passwordField).sendKeys(password);
-//        driver.findElement(loginButton).click();
-//    }
+    private List<WebElement> getDropdownElements() {
+        return dropdownElement.findElements(listItem);
+    }
 }
