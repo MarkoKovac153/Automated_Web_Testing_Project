@@ -1,5 +1,7 @@
 package com.sparta.testing.stepdefs;
 
+import com.sparta.testing.browser_annotation.Browser;
+import com.sparta.testing.browser_annotation.BrowserType;
 import com.sparta.testing.pages.Website;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterAll;
@@ -13,7 +15,7 @@ import org.hamcrest.MatcherAssert;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
-//@Browser(BrowserType.EDGE)
+@Browser(BrowserType.EDGE)
 //@Browser(BrowserType.CHROME)
 //@Browser(BrowserType.FIREFOX)
 public class NavbarStepDefs {

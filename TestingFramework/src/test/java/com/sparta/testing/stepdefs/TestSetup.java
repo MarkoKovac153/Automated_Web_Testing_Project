@@ -346,7 +346,7 @@ public class TestSetup {
 
     private static FirefoxOptions getFirefoxOptions() {
         FirefoxOptions options = new FirefoxOptions();
-        //options.addArguments("--headless");
+        options.addArguments("--headless");
         options.addArguments("--start-maximized");
         options.setImplicitWaitTimeout(Duration.ofSeconds(10));
         return options;
@@ -368,6 +368,7 @@ public class TestSetup {
 
     private static EdgeOptions getEdgeOptions() {
         EdgeOptions options = new EdgeOptions();
+        options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-gpu");
         options.addArguments("--start-maximized");
