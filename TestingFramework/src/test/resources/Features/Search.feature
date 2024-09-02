@@ -11,10 +11,10 @@ Feature: Search
     And I click on the search icon
     Then I should see the product "<product>"
     Examples:
-    |product|
-    |Proteus Fitness Jackshirt|
-    |Circe Hooded Ice Fleece|
-    |Compete Track Tote|
+      |product|
+      |Proteus Fitness Jackshirt|
+      |Circe Hooded Ice Fleece|
+      |Compete Track Tote|
 
   @Sad
   Scenario Outline: Search for a product on the homepage that is not available
@@ -23,10 +23,10 @@ Feature: Search
     And I click on the search icon
     Then I should see a message saying "Your search returned no results."
     Examples:
-    |incorrectProduct|
-    |sploink|
-    |AvAAAAAAA-Awnd dhfdgh|
-    |ooooooooooooooooooooo|
+      |incorrectProduct|
+      |sploink|
+      |AvAAAAAAA-Awnd dhfdgh|
+      |ooooooooooooooooooooo|
 
   @Sad
   Scenario Outline: Search for an item with a query shorter than three characters
