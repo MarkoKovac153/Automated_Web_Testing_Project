@@ -39,7 +39,7 @@ public class LoginPage {
 
     public String[] getErrors() {
         // Turns off the wait when not finding an element
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(100));
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(300));
         String[] output = {
                 getMessage(),
                 emailErrorMessage(),

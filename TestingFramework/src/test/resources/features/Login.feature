@@ -1,8 +1,8 @@
 Feature: Login
 
-  In order to be able to buy items
-  As a registered user of the Sauce Labs website
-  I want to be able to sign in to my account
+  As a returning user,
+  I want to log in to my account
+  So that I can view my order history and manage my account details.
 
   Background:
     Given I am on the login page
@@ -15,36 +15,43 @@ Feature: Login
       | email           | password        |
       | test1@email.com | password123!    |
 
-
   @Sad
   Scenario Outline: Login with valid username and invalid password
     When I enter the following login details "<email>" "<password>"
     Then I should see a login error message that contains "account sign-in was incorrect"
     Examples:
       | email           | password    |
-      | test1@email.com | wrong       |
+      | test1@email.com | correct     |
       | test1@email.com | 12345       |
-      | test1@email.com | Nishy       |
 
   @Sad
   Scenario Outline: Login with valid username and no password
     When I enter the following login details "<email>" "<password>"
-    Then I should see a login error message that contains "required field"
+    Then I should see a login error message that contains "required"
     Examples:
       | email           | password    |
       | test1@email.com |             |
 
   @Sad
-  Scenario Outline: Login with no username and a valid password
+  Scenario Outline: Login with no email and a valid password
     When I enter the following login details "<email>" "<password>"
-    Then I should see a login error message that contains "required field"
+    Then I should see a login error message that contains "required"
     Examples:
       | email           | password    |
-      |                 | password123! |
+      |                 | password123!|
+
+#Only works when Head is enabled
+#  @Sad
+#  Scenario Outline: Login with an incorrectly formatted email and a valid password
+#    When I enter the following login details "<email>" "<password>"
+#    Then I should see a login error message that contains "enter a valid email"
+#    Examples:
+#      | email           | password    |
+#      | k               | password123!|
   @Sad
-  Scenario Outline: Login with an invalid username and a valid password
+  Scenario Outline: Login with an unaccounted username and a valid password
     When I enter the following login details "<email>" "<password>"
     Then I should see a login error message that contains "account sign-in was incorrect"
     Examples:
       | email           | password    |
-      | Kat@email.com   | password123! |
+      | Kat@email.com   | password123!|

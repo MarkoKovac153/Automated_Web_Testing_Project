@@ -1,6 +1,7 @@
 package com.sparta.testing.stepdefs;
 
 import com.sparta.testing.pages.Website;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -8,6 +9,9 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RegistrationPageStepDefs {
     private Website website;
@@ -18,9 +22,28 @@ public class RegistrationPageStepDefs {
         website = TestSetup.getWebsite(BASE_URL);
     }
 
-    @When ("I enter the registration details {string}{string}{string}{string}{string}")
-    public void iEnterMyRegistrationDetails(String firstname, String lastname, String email, String password, String password_confirmation) {
-        website.getRegistrationPage().registerAccount(firstname, lastname, email, password, password_confirmation);
+    @When ("I enter the registration details")
+    public void iEnterMyRegistrationDetails(DataTable dataTable) {
+        List<List<String>> rows = dataTable.asLists(String.class);
+
+        Map<String, String> dataMap = new HashMap<>();
+
+        for (List<String> row : rows) {
+
+            String field = row.get(0).trim();
+            String value = "";
+            if (row.get(1) != null) {
+                value = row.get(1);
+            }
+            dataMap.put(field, value);
+
+        }
+        website.getRegistrationPage().registerAccount(
+                dataMap.get("First Name"),
+                dataMap.get("Last Name"),
+                dataMap.get("Email"),
+                dataMap.get("Password"),
+                dataMap.get("Confirmation"));
     }
 
     @When("I enter my first name {string}")

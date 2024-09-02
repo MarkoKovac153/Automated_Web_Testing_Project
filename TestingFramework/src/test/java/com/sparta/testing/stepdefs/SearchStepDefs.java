@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SearchStepDefs{
 
-    protected Website website;
+    private Website website;
     private static final String BASE_URL = "https://magento.softwaretestingboard.com/";
 
     @Given("I am on the homepage")

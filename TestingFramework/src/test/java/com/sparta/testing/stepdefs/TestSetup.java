@@ -348,7 +348,7 @@ public class TestSetup {
         FirefoxOptions options = new FirefoxOptions();
         options.addArguments("--headless");
         options.addArguments("--start-maximized");
-        options.setImplicitWaitTimeout(Duration.ofSeconds(10));
+        options.setImplicitWaitTimeout(Duration.ofSeconds(4));
         return options;
     }
 

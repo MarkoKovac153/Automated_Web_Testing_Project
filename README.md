@@ -1,4 +1,4 @@
-# Automated_Web_Testing_Project -
+# Automated_Web_Testing_Project
 
 ### Summary -
 
@@ -40,14 +40,33 @@ Copy code
 mvn clean install
 ```
 
-**Set Up the ChromeDriver Path :**
+### WebDriver Configuration:
 
-Ensure the chromedriver.exe file is located in your system’s PATH or specify the path in the test configuration.
-Run Tests:
+**ChromeDriver:**
+* Ensure chromedriver.exe is either:   
+* Placed in the following directory within the project: 'TestingFramework/src/test/resources/drivers'
+* If you're using a different location, set the ChromeDriver path in your test configuration:
+  
+```java
+System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+```
 
-```bash
-Copy code
-mvn test
+**GeckoDriver (for Firefox):**
+* Ensure 'geckodriver' is either:
+* Located in your system’s PATH, or Placed in the following directory within the project: 'TestingFramework/src/test/resources/drivers'
+* If you're using a different location, set the GeckoDriver path in your test configuration:
+
+```java
+System.setProperty("webdriver.gecko.driver", "path/to/geckodriver");
+```
+
+**EdgeDriver:**
+* Ensure msedgedriver.exe is either:   
+* Placed in the following directory within the project: 'TestingFramework/src/test/resources/drivers'
+* If you're using a different location, set the edgedriver path in your test configuration:
+
+```java
+System.setProperty("webdriver.edge.driver", "path/to/msedgedriver");
 ```
 
 ### What Was Tested -
@@ -70,7 +89,7 @@ Negative paths (sad paths) to test the system's behavior in failure scenarios.
 
 (Report here :))
 
-**Defects: **
+**Defects:**
 
 (defects here)
 
@@ -84,3 +103,31 @@ Continuous Integration: A GitHub Actions workflow is set up to run tests automat
 
 ### Conclusion -
 This project demonstrates the development of an automated testing framework that ensures the key functionalities of an eCommerce website are rigorously tested. By leveraging the POM pattern and Gherkin syntax, the tests are structured, maintainable, and aligned with user stories derived from actual user journeys.
+
+### Contributing -
+* Katherine - Java Tester
+* Gilbert - Java Tester
+* Devin - Java Tester
+* Marko - Scrum Master
+
+### License -
+MIT License
+Copyright (c) 2024 TEAM A
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

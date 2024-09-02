@@ -3,9 +3,9 @@ package com.sparta.testing.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -19,9 +19,12 @@ public class HomePage {
     private WebElement dropdownElement = null;
     private String dropdownText = "";
 
+
+    private final By userField = new By.ByClassName("customer-name");
+    private final By loginOrlogoutButton = new By.ByClassName("authorization-link");
+    private final By errorBox = new By.ByClassName("error-message-container");
+
     private final WebDriverWait wait;
-    private String username;
-    private String password;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -84,7 +87,7 @@ public class HomePage {
                 String script = "var event = new MouseEvent('mouseover', { bubbles: true }); arguments[0].dispatchEvent(event);";
                 ((JavascriptExecutor) driver).executeScript(script, dropdownElement);
 
-                By submenuXPath = By.xpath("//a/span[text()='" + dropdownText +"']/ancestor::li[contains(@class, 'parent')]//ul[contains(@class, 'submenu')]/li/a/span[text()='" + button + "']/ancestor::li//ul[contains(@class, 'submenu')]");
+                By submenuXPath = By.xpath("//a/span[text()='" + dropdownText + "']/ancestor::li[contains(@class, 'parent')]//ul[contains(@class, 'submenu')]/li/a/span[text()='" + button + "']/ancestor::li//ul[contains(@class, 'submenu')]");
 
                 try {
                     WebElement submenu = dropdownElement.findElement(submenuXPath);
@@ -158,5 +161,41 @@ public class HomePage {
             }
         }
         return new ArrayList<>();
+    }
+
+    public boolean accountSignedIn() {
+        try {
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(100));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+            wait.until(driver -> driver.findElement(userField).isDisplayed());
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
+            return driver.findElement(userField).isDisplayed();
+        } catch (Exception e) {
+            System.out.println("Field not found");
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
+            return false;
+        }
+    }
+
+    public void clickUserField() {
+        driver.findElement(userField).click();
+    }
+
+    public void clickLoginOrLogoutButton() {
+        driver.findElement(loginOrlogoutButton).click();
+    }
+
+    public boolean isLoginOrLogoutButtonPresent() {
+        try {
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(100));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+            wait.until(driver -> driver.findElement(userField).isDisplayed());
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
+            return driver.findElement(loginOrlogoutButton).isDisplayed();
+        } catch (Exception e) {
+            System.out.println("Field not found");
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
+            return false;
+        }
     }
 }

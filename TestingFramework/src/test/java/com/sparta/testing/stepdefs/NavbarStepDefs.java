@@ -3,9 +3,6 @@ package com.sparta.testing.stepdefs;
 import com.sparta.testing.browser_annotation.Browser;
 import com.sparta.testing.browser_annotation.BrowserType;
 import com.sparta.testing.pages.Website;
-import io.cucumber.java.After;
-import io.cucumber.java.AfterAll;
-import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -22,27 +19,6 @@ public class NavbarStepDefs {
     private Website website;
     private static final String BASE_URL = "https://magento.softwaretestingboard.com/";
 
-    @BeforeAll
-    public static void beforeAll() {
-        TestSetup.startService(NavbarStepDefs.class);
-        TestSetup.createWebDriver();
-    }
-
-    @AfterAll
-    public static void afterAll() {
-        TestSetup.stopService();
-    }
-
-//    @Before
-//    public void beforeEach() {
-//        TestSetup.startService(this.getClass());
-//        TestSetup.createWebDriver();
-//    }
-//
-//    @After
-//    public void afterEach() {
-//        TestSetup.stopService();
-//    }
 
     @Given("I am on any non-checkout page")
     public void iAmOnAnyNonCheckoutPage() {
