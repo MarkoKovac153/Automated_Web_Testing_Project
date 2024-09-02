@@ -31,7 +31,6 @@ public class HomePage {
         WebElement navbarElement = wait.until(ExpectedConditions.visibilityOfElementLocated(navbar));
         return navbarElement.findElements(listItem);
     }
-
     public void waitForPageToLoad() {
         wait.until(driver -> {
             JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -39,12 +38,10 @@ public class HomePage {
         });
         wait.until(ExpectedConditions.visibilityOfElementLocated(navbar));
     }
-
     public void clickButtonOnNavbar(String button) {
         List<WebElement> navbarLinks = getNavbarElements();
         clickLink(navbarLinks, button);
     }
-
     public void hoverButtonOnNavbar(String button) {
         waitForPageToLoad();
         List<WebElement> navbarLinks = getNavbarElements();
@@ -68,7 +65,6 @@ public class HomePage {
         }
         System.err.println("Button not found: " + button);
     }
-
     public boolean isDropDownVisible(String button) {
         By submenuXPath = By.xpath("//a/span[text()='" + button + "']/ancestor::li//ul[contains(@class, 'submenu')]");
 
@@ -80,7 +76,6 @@ public class HomePage {
             return false;
         }
     }
-
     private static void clickLink(List<WebElement> navbarLinks, String linkText) {
         for (WebElement navbarLink : navbarLinks) {
             String text = navbarLink.getText();
@@ -91,13 +86,17 @@ public class HomePage {
         }
         System.out.println("Link with text '" + linkText + "' not found.");
     }
+
     public boolean accountSignedIn() {
         try {
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(100));
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
             wait.until(driver -> driver.findElement(userField).isDisplayed());
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
             return driver.findElement(userField).isDisplayed();
         } catch (Exception e) {
             System.out.println("Field not found");
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
             return false;
         }
 
@@ -111,11 +110,14 @@ public class HomePage {
 
     public boolean isLoginOrLogoutButtonPresent() {
         try {
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(100));
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
             wait.until(driver -> driver.findElement(userField).isDisplayed());
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
             return driver.findElement(loginOrlogoutButton).isDisplayed();
         } catch (Exception e) {
             System.out.println("Field not found");
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
             return false;
         }
     }

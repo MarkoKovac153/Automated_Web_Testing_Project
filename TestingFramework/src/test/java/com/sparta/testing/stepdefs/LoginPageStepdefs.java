@@ -1,10 +1,14 @@
 package com.sparta.testing.stepdefs;
 
 import com.sparta.testing.pages.Website;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.Arrays;
 
@@ -12,6 +16,18 @@ public class LoginPageStepdefs {
 
     private Website website;
     private static final String BASE_URL = "https://magento.softwaretestingboard.com/customer/account/login";
+
+    @Before
+    public void beforeEach() {
+        TestSetup.startService(LoginPageStepdefs.class);
+        TestSetup.createWebDriver();
+    }
+
+    @After
+    public void afterEach() {
+        TestSetup.stopService();
+    }
+
 
     @Given("I am on the login page")
     public void iAmOnTheLoginPage() {
