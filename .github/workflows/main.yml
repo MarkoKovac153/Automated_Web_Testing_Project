@@ -20,9 +20,23 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      
+      # no microsoft edge on  linux
       # - name: Step 3 - setup edge 
       #   uses: browser-actions/setup-edge@v1
+
+      - name: Step 3 - Install Opera Browser
+        run: |
+          sudo add-apt-repository 'deb https://deb.opera.com/opera-stable/ stable non-free'
+          wget -qO- https://deb.opera.com/archive.key | sudo apt-key add -
+          sudo apt-get update
+          sudo apt-get install -y opera-stable
+
+      - name: Step 4 - Download and Install OperaDriver
+        run: |
+          wget https://github.com/operasoftware/operachromiumdriver/releases/download/v.96.0.4664.45/operadriver_linux64.zip
+          unzip operadriver_linux64.zip -d operadriver
+          sudo mv operadriver/operadriver /usr/local/bin/
+          sudo chmod +x /usr/local/bin/operadriver
 
       - name: Step 4 - Download and Install GeckoDriver
         run: |
