@@ -17,18 +17,6 @@ public class LoginPageStepdefs {
     private Website website;
     private static final String BASE_URL = "https://magento.softwaretestingboard.com/customer/account/login";
 
-    @Before
-    public void beforeEach() {
-        TestSetup.startService(LoginPageStepdefs.class);
-        TestSetup.createWebDriver();
-    }
-
-    @After
-    public void afterEach() {
-        TestSetup.stopService();
-    }
-
-
     @Given("I am on the login page")
     public void iAmOnTheLoginPage() {
         website = TestSetup.getWebsite(BASE_URL);

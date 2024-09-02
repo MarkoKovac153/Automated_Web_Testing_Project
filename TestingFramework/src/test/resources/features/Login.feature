@@ -15,7 +15,6 @@ Feature: Login
       | email           | password        |
       | test1@email.com | password123!    |
 
-
   @Sad
   Scenario Outline: Login with valid username and invalid password
     When I enter the following login details "<email>" "<password>"
@@ -40,13 +39,15 @@ Feature: Login
     Examples:
       | email           | password    |
       |                 | password123!|
-  @Sad
-  Scenario Outline: Login with not an email and a valid password
-    When I enter the following login details "<email>" "<password>"
-    Then I should see a login error message that contains "enter a valid email"
-    Examples:
-      | email           | password    |
-      | k               | password123!|
+
+#Only works when Head is enabled
+#  @Sad
+#  Scenario Outline: Login with an incorrectly formatted email and a valid password
+#    When I enter the following login details "<email>" "<password>"
+#    Then I should see a login error message that contains "enter a valid email"
+#    Examples:
+#      | email           | password    |
+#      | k               | password123!|
   @Sad
   Scenario Outline: Login with an unaccounted username and a valid password
     When I enter the following login details "<email>" "<password>"
