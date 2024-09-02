@@ -54,4 +54,4 @@ out/
 .vscode
 
 *.properties
-*/drivers/
+**/drivers/*
