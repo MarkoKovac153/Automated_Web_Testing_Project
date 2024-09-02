@@ -31,7 +31,7 @@ jobs:
           tar -xzf geckodriver-v0.33.0-linux64.tar.gz -C /home/runner/work/Automated_Web_Testing_Project/Automated_Web_Testing_Project/TestingFramework/src/test/resources/drivers
           mv /home/runner/work/Automated_Web_Testing_Project/Automated_Web_Testing_Project/TestingFramework/src/test/resources/drivers/geckodriver /home/runner/work/Automated_Web_Testing_Project/Automated_Web_Testing_Project/TestingFramework/src/test/resources/drivers/geckodriver-linux
 
-      - run: /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers/geckodriver-linux --version
+      - run: /home/runner/work/Automated_Web_Testing_Project/Automated_Web_Testing_Project/TestingFramework/src/test/resources/drivers/geckodriver-linux --version
 
 
       - name: Step 5 - installing chrome and chrome driver
@@ -43,7 +43,7 @@ jobs:
 
       - name: Step 6 - Run Tests
         env:
-          GECKODRIVER_PATH: Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers/geckodriver
+          GECKODRIVER_PATH: Automated_Web_Testing_Project/TestingFramework/src/test/resources/drivers/geckodriver
         run: mvn -B test --file TestingFramework/pom.xml
       
       - name: Step 7 - Build with Maven
