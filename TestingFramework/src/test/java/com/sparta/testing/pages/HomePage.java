@@ -3,6 +3,7 @@ package com.sparta.testing.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,10 +17,10 @@ public class HomePage {
     private final WebDriver driver;
     private final By navbar = new By.ByClassName("navigation");
     private final By listItem = new By.ByTagName("li");
-
+    private final By userField = new By.ByClassName("customer-name");
+    private final By loginOrlogoutButton = new By.ByClassName("authorization-link");
+    private final By errorBox = new By.ByClassName("error-message-container");
     private final WebDriverWait wait;
-    private String username;
-    private String password;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -30,7 +31,6 @@ public class HomePage {
         WebElement navbarElement = wait.until(ExpectedConditions.visibilityOfElementLocated(navbar));
         return navbarElement.findElements(listItem);
     }
-
     public void waitForPageToLoad() {
         wait.until(driver -> {
             JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -38,12 +38,10 @@ public class HomePage {
         });
         wait.until(ExpectedConditions.visibilityOfElementLocated(navbar));
     }
-
     public void clickButtonOnNavbar(String button) {
         List<WebElement> navbarLinks = getNavbarElements();
         clickLink(navbarLinks, button);
     }
-
     public void hoverButtonOnNavbar(String button) {
         waitForPageToLoad();
         List<WebElement> navbarLinks = getNavbarElements();
@@ -67,7 +65,6 @@ public class HomePage {
         }
         System.err.println("Button not found: " + button);
     }
-
     public boolean isDropDownVisible(String button) {
         By submenuXPath = By.xpath("//a/span[text()='" + button + "']/ancestor::li//ul[contains(@class, 'submenu')]");
 
@@ -79,18 +76,6 @@ public class HomePage {
             return false;
         }
     }
-
-    private void hoverButton(List<WebElement> navbarLinks, String button) {
-        Actions actions = new Actions(driver);
-
-        for (WebElement navbarLink : navbarLinks) {
-            if (navbarLink.getText().contains(button)) {
-                actions.moveToElement(navbarLink).perform();
-                return;
-            }
-        }
-    }
-
     private static void clickLink(List<WebElement> navbarLinks, String linkText) {
         for (WebElement navbarLink : navbarLinks) {
             String text = navbarLink.getText();
@@ -102,30 +87,38 @@ public class HomePage {
         System.out.println("Link with text '" + linkText + "' not found.");
     }
 
+    public boolean accountSignedIn() {
+        try {
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(100));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+            wait.until(driver -> driver.findElement(userField).isDisplayed());
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
+            return driver.findElement(userField).isDisplayed();
+        } catch (Exception e) {
+            System.out.println("Field not found");
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
+            return false;
+        }
 
-//    public void login(String username, String password) {
-//        driver.findElement(usernameField).sendKeys(username);
-//        driver.findElement(passwordField).sendKeys(password);
-//        driver.findElement(loginButton).click();
-//    }
-//
-//    public String waitForErrorMessage(){
-//        Wait<WebDriver> webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(errorBox));
-//        return driver.findElement(errorBox).findElement(By.tagName("h3")).getText();
-//    }
-//
-//    public void enterUserName(String username) {
-//        this.username = username;
-//    }
-//
-//    public void enterPassword(String password) {
-//        this.password = password;
-//    }
-//
-//    public void clickLoginButton() {
-//        driver.findElement(usernameField).sendKeys(username);
-//        driver.findElement(passwordField).sendKeys(password);
-//        driver.findElement(loginButton).click();
-//    }
+    }
+    public void clickUserField() {
+        driver.findElement(userField).click();
+    }
+    public void clickLoginOrLogoutButton() {
+        driver.findElement(loginOrlogoutButton).click();
+    }
+
+    public boolean isLoginOrLogoutButtonPresent() {
+        try {
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(100));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+            wait.until(driver -> driver.findElement(userField).isDisplayed());
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
+            return driver.findElement(loginOrlogoutButton).isDisplayed();
+        } catch (Exception e) {
+            System.out.println("Field not found");
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(4000));
+            return false;
+        }
+    }
 }

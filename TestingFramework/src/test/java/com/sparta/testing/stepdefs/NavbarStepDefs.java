@@ -9,6 +9,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.hamcrest.MatcherAssert;
+import org.junit.jupiter.api.AfterEach;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
