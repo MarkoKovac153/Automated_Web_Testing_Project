@@ -20,6 +20,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+
       - name: Download and Install GeckoDriver
         run: |
           mkdir -p /home/runner/work/Automated_Web_Testing_Project-/Automated_Web_Testing_Project-/TestingFramework/src/test/resources/drivers
