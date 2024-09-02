@@ -7,7 +7,6 @@ public class AccountPage {
 
     private final WebDriver driver;
     private final By messageField = new By.ByCssSelector("div.message-success.success.message");
-    private final By returnToHomeButton = new By.ByClassName("button2");
 
 
     public AccountPage(WebDriver driver) {
