@@ -7,10 +7,10 @@ public class Website {
     private final HomePage homePage;
     private final InventoryPage inventoryPage;
     private final SearchPage searchPage;
+    private final ProductsPage productsPage;
     private final RegistrationPage registrationPage;
     private final AccountPage accountPage;
     private final LoginPage loginPage;
-
 
     public Website(WebDriver webDriver){
         this.webDriver = webDriver;
@@ -19,7 +19,8 @@ public class Website {
         registrationPage = new RegistrationPage(webDriver);
         accountPage = new AccountPage(webDriver);
         searchPage = new SearchPage(webDriver);
-        loginPage = new LoginPage(webDriver);
+        productsPage = new ProductsPage(webDriver);
+      loginPage = new LoginPage(webDriver);
     }
 
     public HomePage getHomePage(){
@@ -28,6 +29,11 @@ public class Website {
     public InventoryPage getInventoryPage(){
         return inventoryPage;
     }
+
+    public ProductsPage getProductsPage(){
+        return productsPage;
+    }
+
     public SearchPage getSearchPage() {
         return searchPage;
     }
