@@ -14,3 +14,4 @@ Feature: Product Details
       |women/tops-women.html|0|breathe-easy-tank.html|
       |women/tops-women.html|2|maya-tunic.html|
       |women/tops-women.html|5|nona-fitness-tank.html|
+      |men/bottoms-men/pants-men.html|3|livingston-all-purpose-tight.html|
