@@ -12,24 +12,10 @@ import org.junit.jupiter.api.Assertions;
 import java.io.IOException;
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.MatcherAssert.*;
-
 public class SearchStepDefs{
 
     private Website website;
     private static final String BASE_URL = "https://magento.softwaretestingboard.com/";
-
-    @Before
-    public void setup() throws IOException {
-        TestSetup.startServiceWithDefaultBrowser();
-        TestSetup.createWebDriver();
-    }
-
-    @After
-    public void afterEach(){
-        TestSetup.stopService();
-    }
 
     @Given("I am on the homepage")
     public void iAmOnTheHomepage() {

@@ -15,6 +15,7 @@ Track progress and defects using a project board on GitHub.
 
 **Prerequisites :**
 
+* Intellij Idea (or any other development environment)
 * Java Development Kit (JDK) 8 or higher
 * Maven
 * ChromeDriver (compatible with your Chrome browser version)
@@ -26,7 +27,6 @@ Track progress and defects using a project board on GitHub.
 ```bash
 Copy code
 git clone https://github.com/yourusername/automated-web-testing.git
-```
 
 * Navigate to the Project Directory:
 ```bash
@@ -40,14 +40,33 @@ Copy code
 mvn clean install
 ```
 
-**Set Up the ChromeDriver Path :**
+### WebDriver Configuration:
 
-Ensure the chromedriver.exe file is located in your system’s PATH or specify the path in the test configuration.
-Run Tests:
+**ChromeDriver:**
+* Ensure chromedriver.exe is either:   
+* Placed in the following directory within the project: 'TestingFramework/src/test/resources/drivers'
+* If you're using a different location, set the ChromeDriver path in your test configuration:
+  
+```java
+System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+```
 
-```bash
-Copy code
-mvn test
+**GeckoDriver (for Firefox):**
+* Ensure 'geckodriver' is either:
+* Located in your system’s PATH, or Placed in the following directory within the project: 'TestingFramework/src/test/resources/drivers'
+* If you're using a different location, set the GeckoDriver path in your test configuration:
+
+```java
+System.setProperty("webdriver.gecko.driver", "path/to/geckodriver");
+```
+
+**EdgeDriver:**
+* Ensure msedgedriver.exe is either:   
+* Placed in the following directory within the project: 'TestingFramework/src/test/resources/drivers'
+* If you're using a different location, set the edgedriver path in your test configuration:
+
+```java
+System.setProperty("webdriver.edge.driver", "path/to/msedgedriver");
 ```
 
 ### What Was Tested -
@@ -69,6 +88,10 @@ Negative paths (sad paths) to test the system's behavior in failure scenarios.
 **Test Metrics :**
 
 (Report here :))
+
+**Defects: **
+
+(defects here)
 
 ### Collaborative Use of GitHub -
 Project Board: Used GitHub Projects to manage user stories, tasks, and issues.
