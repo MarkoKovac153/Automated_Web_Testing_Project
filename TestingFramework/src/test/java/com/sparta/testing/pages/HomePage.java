@@ -40,12 +40,14 @@ public class HomePage {
         }
         System.out.println("Link with text '" + linkText + "' not found.");
     }
-    public void accountSignedIn() {
+    public boolean accountSignedIn() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
             wait.until(driver -> driver.findElement(userField).isDisplayed());
+            return driver.findElement(userField).isDisplayed();
         } catch (Exception e) {
             System.out.println("Field not found");
+            return false;
         }
 
     }
@@ -54,6 +56,17 @@ public class HomePage {
     }
     public void clickLoginOrLogoutButton() {
         driver.findElement(loginOrlogoutButton).click();
+    }
+
+    public boolean isLoginOrLogoutButtonPresent() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+            wait.until(driver -> driver.findElement(userField).isDisplayed());
+            return driver.findElement(loginOrlogoutButton).isDisplayed();
+        } catch (Exception e) {
+            System.out.println("Field not found");
+            return false;
+        }
     }
 //    public void login(String username, String password) {
 //        driver.findElement(usernameField).sendKeys(username);
