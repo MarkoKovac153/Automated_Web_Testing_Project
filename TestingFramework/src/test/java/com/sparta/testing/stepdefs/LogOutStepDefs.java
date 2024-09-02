@@ -7,7 +7,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.hamcrest.MatcherAssert;
 
-public class LogOutStepdefs {
+public class LogOutStepDefs {
     private Website website;
     private static final String BASE_URL = "https://magento.softwaretestingboard.com";
 
@@ -17,6 +17,7 @@ public class LogOutStepdefs {
     }
     @And("I am logged into my account")
     public void iAmLoggedIntoMyAccount() {
+        website = TestSetup.getWebsite(BASE_URL);
         website.getHomePage().clickLoginOrLogoutButton();
         website.getLoginPage().enterLoginDetails("test1@email.com", "password123!");
         MatcherAssert.assertThat(website.getHomePage().accountSignedIn(), org.hamcrest.Matchers.equalTo(true));
