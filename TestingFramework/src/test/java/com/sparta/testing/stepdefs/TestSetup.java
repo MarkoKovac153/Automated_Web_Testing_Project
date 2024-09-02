@@ -3,6 +3,7 @@ package com.sparta.testing.stepdefs;
 import com.sparta.testing.browser_annotation.Browser;
 import com.sparta.testing.browser_annotation.BrowserType;
 import com.sparta.testing.pages.Website;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -48,6 +49,7 @@ public class TestSetup {
      * @throws UnsupportedOperationException if the detected default browser is not supported.
      */
     public static void startService(Class<?> testClass) {
+        myOS = detectOS();
         Browser annotation = testClass.getAnnotation(Browser.class);
 
         if (annotation != null) {
@@ -81,6 +83,7 @@ public class TestSetup {
             case SAFARI -> webDriver = new SafariDriver(getSafariOptions());
             default -> throw new UnsupportedOperationException("Unsupported browser: " + myBrowser);
         }
+        webDriver.get("about:blank");
     }
 
     /**
@@ -88,6 +91,8 @@ public class TestSetup {
      */
     public static void stopService() {
         if (webDriver != null) {
+            ((JavascriptExecutor) webDriver).executeScript("window.sessionStorage.clear();");
+            ((JavascriptExecutor) webDriver).executeScript("window.localStorage.clear();");
             webDriver.quit();
             webDriver = null;
         }
@@ -132,7 +137,6 @@ public class TestSetup {
     }
 
     private static String detectDefaultBrowser() {
-        myOS = detectOS();
         String browser = null;
 
         try {
@@ -274,34 +278,6 @@ public class TestSetup {
         return driverLocation;
     }
 
-    private static FirefoxOptions getFirefoxOptions() {
-        FirefoxOptions options = new FirefoxOptions();
-        options.addArguments("--start-maximized");
-        //options.addArguments("--headless");
-        options.setImplicitWaitTimeout(Duration.ofSeconds(10));
-        return options;
-    }
-
-    private static ChromeOptions getChromeOptions() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless", "--start-maximized");
-        options.setImplicitWaitTimeout(Duration.ofSeconds(10));
-        return options;
-    }
-
-    private static EdgeOptions getEdgeOptions() {
-        EdgeOptions options = new EdgeOptions();
-        options.addArguments("--headless", "--start-maximized");
-        options.setImplicitWaitTimeout(Duration.ofSeconds(10));
-        return options;
-    }
-
-    private static SafariOptions getSafariOptions() {
-        SafariOptions options = new SafariOptions();
-        options.setAutomaticInspection(true);
-        return options;
-    }
-
     private static void startService() {
         if (myBrowser == null) {
             throw new IllegalStateException("Browser not set. Use startService(Class<?> testClass) or set myBrowser directly.");
@@ -366,5 +342,46 @@ public class TestSetup {
             }
             default -> throw new UnsupportedOperationException("Unsupported browser: " + myBrowser);
         }
+    }
+
+    private static FirefoxOptions getFirefoxOptions() {
+        FirefoxOptions options = new FirefoxOptions();
+        options.addArguments("--headless");
+        options.addArguments("--start-maximized");
+        options.setImplicitWaitTimeout(Duration.ofSeconds(10));
+        return options;
+    }
+
+    private static ChromeOptions getChromeOptions() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--start-maximized");
+        options.addArguments("--disable-extensions");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-software-rasterizer");
+        options.addArguments("--disable-background-timer-throttling");
+        options.setImplicitWaitTimeout(Duration.ofSeconds(10));
+        return options;
+    }
+
+    private static EdgeOptions getEdgeOptions() {
+        EdgeOptions options = new EdgeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--start-maximized");
+        options.addArguments("--disable-extensions");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-software-rasterizer");
+        options.addArguments("--disable-background-timer-throttling");
+        options.setImplicitWaitTimeout(Duration.ofSeconds(10));
+        return options;
+    }
+
+    private static SafariOptions getSafariOptions() {
+        SafariOptions options = new SafariOptions();
+        options.setAutomaticInspection(true);
+        return options;
     }
 }
