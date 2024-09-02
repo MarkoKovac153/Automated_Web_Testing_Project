@@ -40,14 +40,24 @@ Copy code
 mvn clean install
 ```
 
-**Set Up the ChromeDriver Path :**
+### WebDriver Configuration:
 
-Ensure the chromedriver.exe file is located in your system’s PATH or specify the path in the test configuration.
-Run Tests:
+**ChromeDriver:**
+* Ensure chromedriver.exe is either:   
+* Placed in the following directory within the project: 'TestingFramework/src/test/resources/drivers/chromedriver'
+* If you're using a different location, set the ChromeDriver path in your test configuration:
+  
+```java
+System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+```
 
-```bash
-Copy code
-mvn test
+**GeckoDriver (for Firefox):**
+* Ensure 'geckodriver' is either:
+* Located in your system’s PATH, or Placed in the following directory within the project: TestingFramework/src/test/resources/drivers/geckodriver
+* If you're using a different location, set the GeckoDriver path in your test configuration:
+
+```java
+System.setProperty("webdriver.gecko.driver", "path/to/geckodriver");
 ```
 
 ### What Was Tested -
