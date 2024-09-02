@@ -21,27 +21,6 @@ public class NavbarStepDefs {
     private Website website;
     private static final String BASE_URL = "https://magento.softwaretestingboard.com/";
 
-    @BeforeAll
-    public static void beforeAll() {
-        TestSetup.startService(NavbarStepDefs.class);
-        TestSetup.createWebDriver();
-    }
-
-    @AfterAll
-    public static void afterAll() {
-        TestSetup.stopService();
-    }
-
-//    @Before
-//    public void beforeEach() {
-//        TestSetup.startService(this.getClass());
-//        TestSetup.createWebDriver();
-//    }
-//
-//    @After
-//    public void afterEach() {
-//        TestSetup.stopService();
-//    }
 
     @Given("I am on any non-checkout page")
     public void iAmOnAnyNonCheckoutPage() {
