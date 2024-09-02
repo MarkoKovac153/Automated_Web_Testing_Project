@@ -49,7 +49,7 @@ Feature: CreateAccount
     Then I should see an account error message that contains "This is a required field"
     Examples:
       | firstname | lastname | email           | password     | password_confirmation |
-      | Test      |          | Test1@email.com     | password123! | password123!          |
+      | Test      |          | Test1@email.com     | password123! | password123!      |
   @Sad
   Scenario Outline: Creating a new account with invalid email
     When I enter the registration details
@@ -76,7 +76,7 @@ Feature: CreateAccount
     Then I should see an account error message that contains "already an account with this email address"
     Examples:
       | firstname | lastname | email           | password     | password_confirmation |
-      | Test      | McGee    | Test1@email.com | password123! | password123!      |
+      | Test      | McGee    | Test1@email.com | password123! | password123!          |
   @Sad
   Scenario Outline: Creating a new account with invalid password
     When I enter the registration details
