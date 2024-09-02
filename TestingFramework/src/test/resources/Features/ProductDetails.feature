@@ -11,6 +11,6 @@ Feature: Product Details
     Then I should be on the details page "<productPage>"
     Examples:
       |generalPage|productNumber|productPage|
-      |women/tops-women.html|0|portia-capri|
-      |women/tops-women.html|2|sylvia-capri|
-      |women/tops-women.html|5|bardot-capri|
+      |women/tops-women.html|0|breathe-easy-tank.html|
+      |women/tops-women.html|2|maya-tunic.html|
+      |women/tops-women.html|5|nona-fitness-tank.html|

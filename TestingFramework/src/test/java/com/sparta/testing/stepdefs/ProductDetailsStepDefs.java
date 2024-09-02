@@ -4,6 +4,7 @@ import com.sparta.testing.pages.Website;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.jupiter.api.Assertions;
 
 public class ProductDetailsStepDefs {
 
@@ -17,11 +18,12 @@ public class ProductDetailsStepDefs {
     }
 
     @When("I click on the {int}th product")
-    public void iClickOnTheProductNumberThProduct(int productIndex) {
-        website.getProductsPage();
+    public void iClickOnTheNthProduct(int productIndex) {
+        website.getProductsPage().clickNthProduct(productIndex);
     }
 
     @Then("I should be on the details page {string}")
     public void iShouldBeOnTheDetailsPage(String page) {
+        Assertions.assertEquals(BASE_URL+page,website.getCurrentUrl());
     }
 }
