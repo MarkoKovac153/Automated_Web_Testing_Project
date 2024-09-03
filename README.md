@@ -87,11 +87,7 @@ Negative paths (sad paths) to test the system's behavior in failure scenarios.
 
 **Test Metrics :**
 
-(Report here :))
-
-**Defects:**
-
-(defects here)
+Report is generated in target folder or viewable through the github actions workflow.
 
 ### Collaborative Use of GitHub -
 Project Board: Used GitHub Projects to manage user stories, tasks, and issues.
