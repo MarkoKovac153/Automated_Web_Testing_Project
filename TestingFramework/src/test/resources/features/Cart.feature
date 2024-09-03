@@ -3,7 +3,7 @@ Feature: Cart
   As a user i want to be able to add and remove items from my cart and view it
 
   @Happy
-  Scenario Outline: Creating a new account with valid information
+  Scenario Outline: Adding an product to cart
     Given I am logged into my account
     And I am on the product details page "<product_page>"
     When I select the <size_index>th size and <colour_index>th colour
