@@ -11,6 +11,7 @@ public class Website {
     private final RegistrationPage registrationPage;
     private final AccountPage accountPage;
     private final LoginPage loginPage;
+    private final ProductDetailsPage productDetailsPage;
 
     public Website(WebDriver webDriver){
         this.webDriver = webDriver;
@@ -20,7 +21,8 @@ public class Website {
         accountPage = new AccountPage(webDriver);
         searchPage = new SearchPage(webDriver);
         productsPage = new ProductsPage(webDriver);
-      loginPage = new LoginPage(webDriver);
+        loginPage = new LoginPage(webDriver);
+        productDetailsPage = new ProductDetailsPage(webDriver);
     }
 
     public HomePage getHomePage(){
@@ -46,10 +48,15 @@ public class Website {
     public LoginPage getLoginPage(){
         return loginPage;
     }
+    public ProductDetailsPage getProductDetailsPage() {
+        return productDetailsPage;
+    }
     public String getCurrentUrl(){
         return webDriver.getCurrentUrl();
     }
     public String getPageTitle(){
         return webDriver.getTitle();
     }
+
+
 }
